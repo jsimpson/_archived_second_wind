@@ -9,6 +9,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'unicorn'
 gem 'broutes'
+gem 'paperclip'
 
 group :development, :test do
   gem 'factory_girl_rails'

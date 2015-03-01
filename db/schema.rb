@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150301084632) do
+ActiveRecord::Schema.define(version: 20150301091439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,8 +34,12 @@ ActiveRecord::Schema.define(version: 20150301084632) do
     t.integer  "average_heart_rate"
     t.integer  "total_calories"
     t.decimal  "quality"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "geo_route_file_file_name"
+    t.string   "geo_route_file_content_type"
+    t.integer  "geo_route_file_file_size"
+    t.datetime "geo_route_file_updated_at"
   end
 
 end
