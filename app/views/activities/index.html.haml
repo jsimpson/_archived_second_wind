@@ -1,0 +1,14 @@
+- provide(:title, 'Activities')
+%h1 Activities
+.span6.offset3
+  = link_to new_activity_path, class: 'btn btn-mini btn-primary' do
+    %i.glyphicon.glyphicon-plus
+    New Activity
+%table.table.table-striped
+  %thead
+    %tr
+      %th Type
+  %tbody
+    - @activities.each do |activity|
+      %tr
+        %td= link_to activity.type, activity_path(activity)

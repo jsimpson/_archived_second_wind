@@ -1,0 +1,9 @@
+- provide(:title, "#{@activity.type} @ #{@activity.logged_date}")
+%h1= @activity.logged_date
+%table.table.table-striped
+  %thead
+    %tr
+      %th Type
+  %tbody
+    %tr
+      %td= @activity.type
