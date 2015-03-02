@@ -26,7 +26,6 @@ class ActivitiesController < ApplicationController
 
   def update
     @activity = Activity.find(params[:id])
-
     if @activity.update_attributes(activity_params)
       flash.now[:success] = "Changes saved"
       redirect_to @activity
@@ -54,6 +53,6 @@ class ActivitiesController < ApplicationController
         :total_time, :total_distance, :average_speed,
         :average_pace, :max_elevation, :min_elevation,
         :max_heart_rate, :min_heart_rate, :total_calories,
-        :quality)
+        :quality, :geo_route_file)
     end
 end
