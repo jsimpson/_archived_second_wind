@@ -9,6 +9,7 @@ class ActivitiesController < ApplicationController
 
   def new
     @activity = Activity.new
+    @types = Activity.types
   end
 
   def create
@@ -22,6 +23,7 @@ class ActivitiesController < ApplicationController
 
   def edit
     @activity = Activity.find(params[:id])
+    @types = Activity.types
   end
 
   def update

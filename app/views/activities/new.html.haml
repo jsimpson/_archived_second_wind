@@ -4,6 +4,9 @@
   = form_for @activity, html: { class: 'form-horizontal' } do |f|
     = render 'shared/activity_error_messages'
     .form-group
+      = f.label 'Type', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.select(:type, @types.map { |t| [t.humanize, t.camelcase]}, {})
       = f.label 'Geo Route File', class: 'col-sm-2 control-label'
       .col-sm-10
         = f.file_field :geo_route_file, class: 'form-control'
