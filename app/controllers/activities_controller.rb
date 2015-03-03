@@ -1,6 +1,8 @@
 class ActivitiesController < ApplicationController
+  before_action :set_type
+
   def index
-    @activities = Activity.all
+    @activities = type_class.all
   end
 
   def show
@@ -14,6 +16,7 @@ class ActivitiesController < ApplicationController
 
   def create
     @activity = Activity.new(activity_params)
+    @types = Activity.types
     if @activity.save
       redirect_to activities_url
     else
@@ -49,12 +52,24 @@ class ActivitiesController < ApplicationController
   private
 
     def activity_params
-      params.require(:activity).permit(
+      params.require(type.underscore.to_sym).permit(
         :type, :logged_date, :start_time,
         :end_time, :total_elevation_gain, :total_elevation_loss,
         :total_time, :total_distance, :average_speed,
         :average_pace, :max_elevation, :min_elevation,
         :max_heart_rate, :min_heart_rate, :total_calories,
-        :quality, :geo_route_file)
+        :quality, :geo_route)
+    end
+
+    def set_type
+      @type = type
+    end
+
+    def type
+      Activity.types.include?(params[:type]) ? params[:type] : 'Activity'
+    end
+
+    def type_class
+      type.constantize
     end
 end

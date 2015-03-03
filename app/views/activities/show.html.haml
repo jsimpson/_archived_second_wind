@@ -4,6 +4,20 @@
   %thead
     %tr
       %th Type
+      %th GeoRoute
+      %th Started At
+      %th Ended At
+      %th Total Time
+      %th Total Distance
+      %th Elevation Gain
+      %th Elevation Loss
   %tbody
     %tr
       %td= @activity.type
+      %td= link_to @activity.geo_route_file_name, @activity.geo_route.url(:original, false)
+      %td= @activity.started_at
+      %td= @activity.ended_at
+      %td= @activity.elapsed_time
+      %td= "#{number_with_delimiter(@activity.total_distance.to_i)} m"
+      %td= "#{number_with_precision(@activity.total_elevation_gain, precision: 2)} ft"
+      %td= "#{number_with_precision(@activity.total_elevation_loss, precision: 2)} ft"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150301091439) do
+ActiveRecord::Schema.define(version: 20150303073926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,27 +19,25 @@ ActiveRecord::Schema.define(version: 20150301091439) do
   create_table "activities", force: :cascade do |t|
     t.string   "type"
     t.datetime "logged_date"
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.datetime "started_at"
+    t.datetime "ended_at"
     t.decimal  "total_elevation_gain"
     t.decimal  "total_elevation_loss"
     t.integer  "total_time"
     t.decimal  "total_distance"
     t.decimal  "average_speed"
-    t.decimal  "average_pace"
     t.decimal  "max_elevation"
     t.decimal  "min_elevation"
     t.integer  "max_heart_rate"
     t.integer  "min_heart_rate"
     t.integer  "average_heart_rate"
-    t.integer  "total_calories"
     t.decimal  "quality"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.string   "geo_route_file_file_name"
-    t.string   "geo_route_file_content_type"
-    t.integer  "geo_route_file_file_size"
-    t.datetime "geo_route_file_updated_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "geo_route_file_name"
+    t.string   "geo_route_content_type"
+    t.integer  "geo_route_file_size"
+    t.datetime "geo_route_updated_at"
   end
 
 end
