@@ -1,5 +1,32 @@
 require 'spec_helper'
 
-RSpec.describe Activity, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Activity, type: :model do
+  describe '#update_route' do
+    before(:each) { Broutes.logger.level = Logger::FATAL }
+    let(:run) { FactoryGirl.create(:run_with_geo_route) }
+
+    it 'should set the fields from the geo route file' do
+      expect(run.started_at).to eql(DateTime.new(2014, 07, 27, 6, 33, 46, '-7').to_time)
+      expect(run.ended_at).to eql(DateTime.new(2014, 07, 27, 9, 01, 00, '-7').to_time)
+      expect(run.total_elevation_gain).to be_within(0.1).of(526.79)
+      expect(run.total_elevation_loss).to be_within(0.1).of(449.79)
+      expect(run.total_time).to eql(8834.0)
+      expect(run.total_distance).to eql(21446)
+      expect(run.average_speed).to be_within(0.1).of(2.40)
+      expect(run.max_elevation).to be_within(0.1).of(94.8)
+      expect(run.min_elevation).to be_within(0.1).of(-11.0)
+      expect(run.max_heart_rate).to eql(173)
+      expect(run.min_heart_rate).to eql(111)
+      expect(run.average_heart_rate).to eql(154)
+    end
+  end
+
+  describe '#elapsed_time' do
+    before(:each) { Broutes.logger.level = Logger::FATAL }
+    let(:run) { FactoryGirl.create(:run_with_geo_route) }
+
+    it 'should return the elapsed time string' do
+      expect(run.elapsed_time).to eql('2.453888888888889 hrs, 27.23333333333332 mins, 14.0 secs')
+    end
+  end
 end
