@@ -27,7 +27,6 @@ class Activity < ActiveRecord::Base
     if !geo_route.nil?
       format = get_format
       file = File.open(geo_route.path)
-      binding.pry
       route = Broutes.from_file(file, format)
 
       self.update_column(:started_at, route.started_at)
@@ -36,15 +35,12 @@ class Activity < ActiveRecord::Base
       self.update_column(:total_elevation_loss, route.total_descent)
       self.update_column(:total_time, route.total_time)
       self.update_column(:total_distance, route.total_distance)
-
-      if format == :tcx
-        self.update_column(:average_speed, route.average_speed)
-        self.update_column(:max_elevation, route.maximum_elevation)
-        self.update_column(:min_elevation, route.minimum_elevation)
-        self.update_column(:max_heart_rate, route.maximum_heart_rate)
-        self.update_column(:min_heart_rate, route.minimum_heart_rate)
-        self.update_column(:average_heart_rate, route.average_heart_rate)
-      end
+      self.update_column(:average_speed, route.average_speed)
+      self.update_column(:max_elevation, route.maximum_elevation)
+      self.update_column(:min_elevation, route.minimum_elevation)
+      self.update_column(:max_heart_rate, route.maximum_heart_rate)
+      self.update_column(:min_heart_rate, route.minimum_heart_rate)
+      self.update_column(:average_heart_rate, route.average_heart_rate)
     end
   end
 
