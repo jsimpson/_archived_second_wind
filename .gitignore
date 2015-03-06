@@ -16,3 +16,6 @@
 config/secrets.yml
 
 /public/geo_routes/*
+
+*.tcx
+*.gpx

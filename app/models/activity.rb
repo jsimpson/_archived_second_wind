@@ -16,11 +16,15 @@ class Activity < ActiveRecord::Base
     seconds = self.total_time % 60
     minutes = (self.total_time / 60) % 60
     hours = self.total_time/3600
-    if hours > 0
-      "#{hours.to_s} hrs, #{minutes.to_s} mins, #{seconds.to_s} secs"
-    else
-      "#{minutes.to_s} mins, #{seconds.to_s} secs"
-    end
+    format("%02d:%02d:%02d", hours, minutes, seconds)
+  end
+
+  def total_distance_in_miles
+    self.total_distance * 0.000621371
+  end
+
+  def average_speed_in_miles_per_hour
+    self.average_speed * 2.23694
   end
 
   def update_route
