@@ -1,10 +1,9 @@
-- provide(:title, "#{@activity.type} @ #{@activity.logged_date}")
+- provide(:title, "#{@activity.type} @ #{@activity.started_at.localtime.to_s(:long)}")
 %h1= "#{@activity.type}"
-%h2= "Started @ #{@activity.started_at.localtime.to_time}, Ended @ #{@activity.ended_at.localtime}"
+%h2= "Started @ #{@activity.started_at.localtime.to_time.to_s(:long)}, Ended @ #{@activity.ended_at.localtime.to_s(:long)}"
 %table.table.table-striped
   %thead
     %tr
-      %th GeoRoute
       %th Total Time
       %th Total Distance
       %th Avg Speed
@@ -17,10 +16,9 @@
       %th Avg Heart Rate
   %tbody
     %tr
-      %td= link_to @activity.geo_route_file_name, @activity.geo_route.url(:original, false)
       %td= @activity.elapsed_time
-      %td= "#{number_with_precision(@activity.total_distance_in_miles, precision: 2)} miles"
-      %td= "#{number_with_precision(@activity.average_speed_in_miles_per_hour, precision: 2)} mph"
+      %td= "#{number_with_precision(@activity.get_total_distance, precision: 2)} miles"
+      %td= "#{number_with_precision(@activity.get_average_speed, precision: 2)} mph"
       %td= "#{number_with_precision(@activity.total_elevation_gain, precision: 2)} ft"
       %td= "#{number_with_precision(@activity.total_elevation_loss, precision: 2)} ft"
       %td= "#{number_with_precision(@activity.max_elevation, precision: 2)} ft"

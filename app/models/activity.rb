@@ -19,12 +19,12 @@ class Activity < ActiveRecord::Base
     format("%02d:%02d:%02d", hours, minutes, seconds)
   end
 
-  def total_distance_in_miles
-    self.total_distance * 0.000621371
+  def get_total_distance
+    total_distance * 0.000621371
   end
 
-  def average_speed_in_miles_per_hour
-    self.average_speed * 2.23694
+  def get_average_speed
+    average_speed * 2.23694
   end
 
   def update_route

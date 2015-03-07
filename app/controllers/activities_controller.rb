@@ -52,13 +52,7 @@ class ActivitiesController < ApplicationController
   private
 
     def activity_params
-      params.require(type.underscore.to_sym).permit(
-        :type, :logged_date, :start_time,
-        :end_time, :total_elevation_gain, :total_elevation_loss,
-        :total_time, :total_distance, :average_speed,
-        :average_pace, :max_elevation, :min_elevation,
-        :max_heart_rate, :min_heart_rate, :total_calories,
-        :quality, :geo_route)
+      params.require(type.underscore.to_sym).permit(:type, :geo_route)
     end
 
     def set_type

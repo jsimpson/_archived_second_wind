@@ -26,7 +26,7 @@ describe Activity, type: :model do
     let(:run) { FactoryGirl.create(:run_with_geo_route) }
 
     it 'should return the elapsed time string' do
-      expect(run.elapsed_time).to eql('2.453888888888889 hrs, 27.23333333333332 mins, 14.0 secs')
+      expect(run.elapsed_time).to eql('02:27:14')
     end
   end
 end

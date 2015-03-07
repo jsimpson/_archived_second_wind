@@ -20,10 +20,10 @@
     - @activities.each do |activity|
       %tr
         %td= link_to activity.type, activity_path(activity)
-        %td= activity.started_at.localtime
-        %td= activity.ended_at.localtime
+        %td= activity.started_at.localtime.to_s(:long)
+        %td= activity.ended_at.localtime.to_s(:long)
         %td= activity.elapsed_time
-        %td= "#{number_with_precision(activity.total_distance_in_miles, precision: 2)} miles"
+        %td= "#{number_with_precision(activity.get_total_distance, precision: 2)} miles"
         %td= "#{number_with_precision(activity.total_elevation_gain, precision: 2)} ft"
         %td= "#{number_with_precision(activity.total_elevation_loss, precision: 2)} ft"
         %td
