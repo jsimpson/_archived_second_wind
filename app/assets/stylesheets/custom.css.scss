@@ -113,3 +113,27 @@ input {
 .field_with_errors {
     @extend .has-error;
 }
+
+#map-container {
+    height: 400px;
+    border-radius: 16px 16px;
+    border-color: #fff;
+    border-style: solid;
+    box-shadow: 2px 2px 10px #b1b1b1;
+    margin-top: 25px;
+    border-width: 7px;
+}
+
+#map {
+    height: 384px;
+    width: 100%;
+}
+
+#map-container #map img {
+    max-width: none;
+}
+
+#map-container #map label {
+    width: auto;
+    display: inline;
+}

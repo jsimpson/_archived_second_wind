@@ -49,6 +49,15 @@ class Activity < ActiveRecord::Base
     end
   end
 
+  def geo_points
+    if !geo_route.nil?
+      format = get_format
+      file = File.open(geo_route.path)
+      route = Broutes.from_file(file, format)
+      route.points.reject{ |p| p.lat == nil; p.lon == nil; }.map { |p| {lat: p.lat, lng: p.lon} }.to_json
+    end
+  end
+
   private
 
     def get_format

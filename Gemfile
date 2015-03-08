@@ -21,6 +21,8 @@ gem 'chartkick'
 gem 'groupdate'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
+gem 'gmaps4rails'
+gem 'underscore-rails'
 
 group :development, :test do
   gem 'better_errors'

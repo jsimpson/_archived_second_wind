@@ -1,32 +1,44 @@
-= javascript_include_tag '//www.google.com/jsapi', 'chartkick'
+= javascript_include_tag "//www.google.com/jsapi", "chartkick"
+
 - provide(:title, 'Activities')
+
 .page-header
   %h1 Activities
+
 .span6.offset3
-  = line_chart @activities.unscoped.group_by_month(:started_at, format: "%B %d, %Y").sum(:total_distance)
+  = line_chart @activities.unscoped.group_by_month(:started_at, format: "%B %d, %Y").sum(:total_distance), library: { height: "400px", width: "800px" }
   = will_paginate @activities, renderer: BootstrapPagination::Rails
+
 %table.table.table-striped
   %thead
     %tr
-      %th Type
-      %th Started At
-      %th Ended At
-      %th Total Time
-      %th Total Distance
-      %th Elevation Gain
-      %th Elevation Loss
-      %th
+      %th{rowspan: 2} Type
+      %th{rowspan: 2} Started At
+      %th{rowspan: 2} Average Speed
+      %th{colspan: 2} Totals
+      %th{colspan: 3} Elevation
+      %th{colspan: 2} Heart Rate
+    %tr
+      %th Time
+      %th Distance
+      %th Gain
+      %th Loss
+      %th Max
+      %th Max
+      %th Average
   %tbody
     - @activities.each do |activity|
       %tr
         %td= link_to activity.type, activity_path(activity)
         %td= activity.started_at.localtime.to_s(:long)
-        %td= activity.ended_at.localtime.to_s(:long)
+        %td= "#{number_with_precision(activity.get_average_speed, precision: 2)} mph"
         %td= activity.elapsed_time
         %td= "#{number_with_precision(activity.get_total_distance, precision: 2)} miles"
         %td= "#{number_with_precision(activity.total_elevation_gain, precision: 2)} ft"
-        %td= "#{number_with_precision(activity.total_elevation_loss, precision: 2)} ft"
-        %td
-          = link_to 'Edit', edit_activity_path(activity), class: 'btn btn-mini btn-default'
-          = link_to 'Delete', activity, method: :delete, data: { confirm: "Are you sure you want to delete this #{activity.type}?" }, class: 'btn btn-mini btn-danger'
+        %td= "#{number_with_precision(activity.total_elevation_gain, precision: 2)} ft"
+        %td= "#{number_with_precision(activity.max_elevation, precision: 2)} ft"
+        %td= "#{activity.max_heart_rate} bpm"
+        %td= "#{activity.average_heart_rate} bpm"
+        %td= link_to 'Edit', edit_activity_path(activity), class: 'btn btn-mini btn-default'
+
 = will_paginate @activities, renderer: BootstrapPagination::Rails
