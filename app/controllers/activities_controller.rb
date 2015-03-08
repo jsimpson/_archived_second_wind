@@ -2,7 +2,7 @@ class ActivitiesController < ApplicationController
   before_action :set_type
 
   def index
-    @activities = type_class.all
+    @activities = type_class.paginate(page: params[:page])
   end
 
   def show

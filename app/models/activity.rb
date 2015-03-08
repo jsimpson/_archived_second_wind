@@ -5,6 +5,7 @@ class Activity < ActiveRecord::Base
 
   after_save :update_route
 
+  default_scope -> { order('started_at DESC') }
   scope :runs, -> { where(type: 'Run') }
   scope :rides, -> { where(type: 'Ride') }
 

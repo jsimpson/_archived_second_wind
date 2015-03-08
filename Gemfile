@@ -17,8 +17,13 @@ gem 'sprockets'
 gem 'autoprefixer-rails'
 gem 'bootstrap_form'
 gem 'haml-rails'
+gem 'chartkick'
+gem 'groupdate'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
 
 group :development, :test do
+  gem 'better_errors'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'pry'
@@ -26,6 +31,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'rspec-its'
+  gem 'rubocop'
   gem 'spring'
   gem 'web-console'
 end
