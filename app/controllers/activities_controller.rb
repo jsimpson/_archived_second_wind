@@ -3,6 +3,7 @@ class ActivitiesController < ApplicationController
 
   def index
     @activities = type_class.paginate(page: params[:page])
+    @mileage = type_class.group_mileage_by_month
   end
 
   def show

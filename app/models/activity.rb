@@ -18,7 +18,7 @@ class Activity < ActiveRecord::Base
   def elapsed_time
     seconds = self.total_time % 60
     minutes = (self.total_time / 60) % 60
-    hours = self.total_time/3600
+    hours = self.total_time / 3600
     format("%02d:%02d:%02d", hours, minutes, seconds)
   end
 
@@ -55,6 +55,10 @@ class Activity < ActiveRecord::Base
 
   def get_geo_points_speed
     return geo_points.where(activity_id: self.id).reject { |p| p.speed == nil }.map { |p| { p.time => p.speed.round(2) }.flatten }.uniq if geo_points.any?
+  end
+
+  def self.group_mileage_by_month
+    unscoped.group_by_month(:started_at, format: "%B %Y").sum(:total_distance).map { |m| { m[0] => (m[1] * 0.000621371).round(2) }.flatten }
   end
 
   private
