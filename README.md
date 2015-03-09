@@ -31,7 +31,7 @@ bundle exec rake db:create
 bundle exec rake db:migrate
 ```
 
-Download your GeoRoute files from Garmin (or where ever they end up). I use the [Disconnect](https://gist.github.com/jsimpson/174beffe4e32222cf4da) script to download my GeoRoute files to `lib/assets/geo_routes`
+Download your GeoRoute files from Garmin (or where ever they end up). I use the [Disconnect](https://gist.github.com/jsimpson/174beffe4e32222cf4da) script to download my GeoRoute files from Garmin Connect to `lib/assets/geo_routes`. If you use a different GPS vendor you'll need to obtain your GeoRoute files another way.
 
 Execute the `geo_route:import` rake task to import the GeoRoutes as activities.
 
