@@ -1,40 +1,45 @@
 %script{:src => "//maps.google.com/maps/api/js?v=3.13&sensor=false&libraries=geometry", :type => "text/javascript"}
 %script{:src => "//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js", :type => "text/javascript"}
 
+= javascript_include_tag "//www.google.com/jsapi", "chartkick"
+
 - provide(:title, "#{@activity.type} @ #{@activity.started_at.localtime.to_s(:long)}")
 
 .page-header
-  %h1= "#{@activity.type}"
-
-.span6.offset3
-  %h2= "Started @ #{@activity.started_at.localtime.to_time.to_s(:long)}, Ended @ #{@activity.ended_at.localtime.to_s(:long)}"
+  %h1= "#{@activity.type} on #{@activity.started_at.localtime.to_s(:long)}"
 
 #map-container
   #map
 
 :javascript
   $(document).ready(function() {
-    gmaps_show(#{@activity.geo_points});
+    gmaps_draw_route(#{@polyline});
   });
+
+.page-header
 
 %table.table.table-striped
   %thead
     %tr
-      %th Total Time
-      %th Total Distance
-      %th Avg Speed
-      %th Elevation Gain
-      %th Elevation Loss
-      %th Max Elevation
-      %th Min Elevation
-      %th Max Heart Rate
-      %th Min Heart Rate
-      %th Avg Heart Rate
+      %th{rowspan: 2} Avg Speed
+      %th{colspan: 2} Totals
+      %th{colspan: 4} Elevation
+      %th{colspan: 3} Heart Rate
+    %tr
+      %th Distance
+      %th Time
+      %th Gain
+      %th Loss
+      %th Max
+      %th Min
+      %th Max
+      %th Min
+      %th Avg
   %tbody
     %tr
+      %td= "#{number_with_precision(@activity.get_average_speed, precision: 2)} mph"
       %td= @activity.elapsed_time
       %td= "#{number_with_precision(@activity.get_total_distance, precision: 2)} miles"
-      %td= "#{number_with_precision(@activity.get_average_speed, precision: 2)} mph"
       %td= "#{number_with_precision(@activity.total_elevation_gain, precision: 2)} ft"
       %td= "#{number_with_precision(@activity.total_elevation_loss, precision: 2)} ft"
       %td= "#{number_with_precision(@activity.max_elevation, precision: 2)} ft"
@@ -42,3 +47,9 @@
       %td= "#{@activity.max_heart_rate} bpm"
       %td= "#{@activity.min_heart_rate} bpm"
       %td= "#{@activity.average_heart_rate} bpm"
+
+.page-header
+
+= area_chart @heart_rate, library: { vAxis: { title: 'Heart Rate (bpm)' }}
+= area_chart @elevation, library: { vAxis: { title: 'Elevation (ft)' }}
+= area_chart @speed, library: { vAxis: { title: 'Speed (mph)' }}

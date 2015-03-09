@@ -7,6 +7,10 @@ class ActivitiesController < ApplicationController
 
   def show
     @activity = Activity.find(params[:id])
+    @polyline = @activity.get_geo_points_lat_lng.to_json
+    @heart_rate = @activity.get_geo_points_heart_rate
+    @elevation = @activity.get_geo_points_elevation
+    @speed = @activity.get_geo_points_speed
   end
 
   def new

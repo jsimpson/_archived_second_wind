@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150307011848) do
+ActiveRecord::Schema.define(version: 20150308191917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,5 +38,22 @@ ActiveRecord::Schema.define(version: 20150307011848) do
     t.integer  "geo_route_file_size"
     t.datetime "geo_route_updated_at"
   end
+
+  create_table "geo_points", force: :cascade do |t|
+    t.integer  "activity_id"
+    t.integer  "cadence"
+    t.decimal  "distance"
+    t.decimal  "elevation"
+    t.integer  "heart_rate"
+    t.decimal  "lat"
+    t.decimal  "lng"
+    t.decimal  "power"
+    t.decimal  "speed"
+    t.datetime "time"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "geo_points", ["activity_id"], name: "index_geo_points_on_activity_id", using: :btree
 
 end
