@@ -4,6 +4,10 @@ class ActivitiesController < ApplicationController
   def index
     @activities = type_class.paginate(page: params[:page])
     @mileage = type_class.group_mileage_by_month
+    @activities_in_last_year = type_class.activities_in_last_year
+    @distance_in_last_year = @activities_in_last_year.sum_distance
+    @time_in_last_year = @activities_in_last_year.sum_time
+    @elevation_gain_in_last_year = @activities_in_last_year.sum_elevation_gain
   end
 
   def show
@@ -11,7 +15,7 @@ class ActivitiesController < ApplicationController
     @polyline = @activity.get_geo_points_lat_lng.to_json
     @heart_rate = @activity.get_geo_points_heart_rate
     @elevation = @activity.get_geo_points_elevation
-    @speed = @activity.get_geo_points_speed
+    @pace = @activity.get_geo_points_pace
   end
 
   def new

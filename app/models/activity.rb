@@ -16,10 +16,7 @@ class Activity < ActiveRecord::Base
   end
 
   def elapsed_time
-    seconds = self.total_time % 60
-    minutes = (self.total_time / 60) % 60
-    hours = self.total_time / 3600
-    format("%02d:%02d:%02d", hours, minutes, seconds)
+    format("%02d:%02d:%02d", get_hours(self.total_time), get_minutes(self.total_time), get_seconds(self.total_time))
   end
 
   def get_total_distance
@@ -28,6 +25,22 @@ class Activity < ActiveRecord::Base
 
   def get_average_speed
     average_speed * 2.23694
+  end
+
+  def get_average_pace
+    pace = 60 / (average_speed * 2.23694)
+    seconds = (pace.frac * 60).floor
+    format("%02d:%02d", pace.fix, seconds)
+  end
+
+  def get_max_speed
+    geo_points.maximum(:speed) * 2.23694
+  end
+
+  def get_max_pace
+    pace = 60 / (geo_points.maximum(:speed) * 2.23694)
+    seconds = (pace.frac * 60).floor
+    format("%02d:%02d", pace.fix, seconds)
   end
 
   def update_route
@@ -53,12 +66,33 @@ class Activity < ActiveRecord::Base
     return geo_points.where(activity_id: self.id).reject { |p| p.elevation == nil }.map { |p| { p.time => p.elevation.round(2) }.flatten }.uniq if geo_points.any?
   end
 
-  def get_geo_points_speed
-    return geo_points.where(activity_id: self.id).reject { |p| p.speed == nil }.map { |p| { p.time => p.speed.round(2) }.flatten }.uniq if geo_points.any?
+  # TODO: calculates non-timey pace values
+  def get_geo_points_pace
+    return geo_points.where(activity_id: self.id).reject { |p| p.speed == nil }.map { |p| { p.time => (60 / (p.speed * 2.23694)).round(2) }.flatten }.uniq if geo_points.any?
   end
 
   def self.group_mileage_by_month
     unscoped.group_by_month(:started_at, format: "%B %Y").sum(:total_distance).map { |m| { m[0] => (m[1] * 0.000621371).round(2) }.flatten }
+  end
+
+  def self.activities_in_last_year
+    where(started_at: Time.now.midnight - 365.days .. Time.now.midnight)
+  end
+
+  def self.sum_distance
+    sum(:total_distance) * 0.000621371
+  end
+
+  def self.sum_elevation_gain
+    sum(:total_elevation_gain)
+  end
+
+  def self.sum_time
+    t = sum(:total_time)
+    seconds = t % 60
+    minutes = (t / 60) % 60
+    hours = t / 3600
+    "#{hours} hrs, #{minutes} mins, #{seconds} secs"
   end
 
   private
@@ -104,5 +138,17 @@ class Activity < ActiveRecord::Base
 
         geo_point.save
       end
+    end
+
+    def get_seconds(time)
+      time % 60
+    end
+
+    def get_minutes(time)
+      (time / 60) % 60
+    end
+
+    def get_hours(time)
+      time / 3600
     end
 end
