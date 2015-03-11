@@ -6,6 +6,9 @@
   %h1 Activities
 
 - if @activities.any?
+  .span6.offset3
+    = line_chart activities_mileage_url, library: { title: 'Lifetime Mileage by Month', vAxis: { title: 'Miles', titleTextStyle: { fontName: 'Helvetica' }}, titleTextStyle: { fontName: 'Helvetica' }}
+
   .page-header
     %h2 Last 12 Months
     %table.table.table-striped
@@ -17,13 +20,40 @@
           %th Elevation Gain
       %tbody
         %tr
-          %td= @activities_in_last_year.count
-          %td= "#{number_with_precision(@distance_in_last_year, precision: 2, delimiter: ',')} miles"
-          %td= @time_in_last_year
-          %td= "#{number_with_precision(@elevation_gain_in_last_year, precision: 2, delimiter: ',')} ft"
+          %td= @activities.activities_in_last_year.count
+          %td= "#{number_with_precision(@activities.activities_in_last_year.sum_distance, precision: 2, delimiter: ',')} miles"
+          %td= @activities.activities_in_last_year.sum_time
+          %td= "#{number_with_precision(@activities.activities_in_last_year.sum_elevation_gain, precision: 2, delimiter: ',')} ft"
+    -#%h2 Last Month
+    -#%table.table.table-striped
+      %thead
+        %tr
+          %th Activities
+          %th Distance
+          %th Time
+          %th Elevation Gain
+      %tbody
+        %tr
+          %td= @activities.activities_in_last_month.count
+          %td= "#{number_with_precision(@activities.activities_in_last_month.sum_distance, precision: 2, delimiter: ',')} miles"
+          %td= @activities.activities_in_last_month.sum_time
+          %td= "#{number_with_precision(@activities.activities_in_last_month.sum_elevation_gain, precision: 2, delimiter: ',')} ft"
+    -#%h2 Last Week
+    -#%table.table.table-striped
+      %thead
+        %tr
+          %th Activities
+          %th Distance
+          %th Time
+          %th Elevation Gain
+      %tbody
+        %tr
+          %td= @activities.activities_in_last_week.count
+          %td= "#{number_with_precision(@activities.activities_in_last_week.sum_distance, precision: 2, delimiter: ',')} miles"
+          %td= @activities.activities_in_last_week.sum_time
+          %td= "#{number_with_precision(@activities.activities_in_last_week.sum_elevation_gain, precision: 2, delimiter: ',')} ft"
 
   .span6.offset3
-    = line_chart @mileage, library: { title: 'Lifetime Mileage by Month', vAxis: { title: 'Miles', titleTextStyle: { fontName: 'Helvetica' }}, titleTextStyle: { fontName: 'Helvetica' }}
     = will_paginate @activities, renderer: BootstrapPagination::Rails
 
   %table.table.table-striped
@@ -60,5 +90,3 @@
           %td= "#{activity.max_heart_rate} bpm"
           %td= "#{activity.average_heart_rate} bpm"
           %td= link_to 'Edit', edit_activity_path(activity), class: 'btn btn-mini btn-default'
-
-  = will_paginate @activities, renderer: BootstrapPagination::Rails

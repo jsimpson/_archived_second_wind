@@ -48,16 +48,16 @@
       %td= "#{number_with_precision(@activity.get_max_speed, precision: 2)} mph"
       %td= "#{number_with_precision(@activity.get_average_pace, precision: 2)} min/mile"
       %td= "#{number_with_precision(@activity.get_max_pace, precision: 2)} min/mile"
-      %td= "#{number_with_precision(@activity.total_elevation_gain, precision: 2)} ft"
-      %td= "#{number_with_precision(@activity.total_elevation_loss, precision: 2)} ft"
-      %td= "#{number_with_precision(@activity.max_elevation, precision: 2)} ft"
-      %td= "#{number_with_precision(@activity.min_elevation, precision: 2)} ft"
+      %td= "#{number_with_precision(@activity.get_total_elevation_gain, precision: 2)} ft"
+      %td= "#{number_with_precision(@activity.get_total_elevation_loss, precision: 2)} ft"
+      %td= "#{number_with_precision(@activity.get_max_elevation, precision: 2)} ft"
+      %td= "#{number_with_precision(@activity.get_min_elevation, precision: 2)} ft"
       %td= "#{@activity.max_heart_rate} bpm"
       %td= "#{@activity.min_heart_rate} bpm"
       %td= "#{@activity.average_heart_rate} bpm"
 
 .page-header
 
-= area_chart @heart_rate, library: { vAxis: { title: 'Heart Rate (bpm)', titleTextStyle: { fontName: 'Helvetica' }}, colors: ['#990000']}
-= area_chart @elevation, library: { vAxis: { title: 'Elevation (ft)', titleTextStyle: { fontName: 'Helvetica' }}, colors: ['#228400']}
-= area_chart @pace, library: { vAxis: { title: 'Pace (min/mile)', titleTextStyle: { fontName: 'Helvetica' }}, colors: ['#0077e6']}
+= area_chart heart_rate_path, library: { vAxis: { title: 'Heart Rate (bpm)', titleTextStyle: { fontName: 'Helvetica' }}, colors: ['#990000']}
+= area_chart elevation_path, library: { vAxis: { title: 'Elevation (ft)', titleTextStyle: { fontName: 'Helvetica' }}, colors: ['#228400']}
+= area_chart speed_path, library: { vAxis: { title: 'Speed (miles/hr)', titleTextStyle: { fontName: 'Helvetica' }}, colors: ['#0077e6']}

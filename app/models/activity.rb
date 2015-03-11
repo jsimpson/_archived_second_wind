@@ -8,8 +8,6 @@ class Activity < ActiveRecord::Base
   after_save :update_route
 
   default_scope -> { order('started_at DESC') }
-  scope :runs, -> { where(type: 'Run') }
-  scope :rides, -> { where(type: 'Ride') }
 
   def self.types
     %w(Run Ride)
@@ -43,6 +41,22 @@ class Activity < ActiveRecord::Base
     format("%02d:%02d", pace.fix, seconds)
   end
 
+  def get_total_elevation_gain
+    total_elevation_gain * 3.28084
+  end
+
+  def get_total_elevation_loss
+    total_elevation_loss * 3.28084
+  end
+
+  def get_max_elevation
+    max_elevation * 3.28084
+  end
+
+  def get_min_elevation
+    min_elevation * 3.28084
+  end
+
   def update_route
     if !geo_route.nil?
       format = get_format
@@ -63,10 +77,14 @@ class Activity < ActiveRecord::Base
   end
 
   def get_geo_points_elevation
-    return geo_points.where(activity_id: self.id).reject { |p| p.elevation == nil }.map { |p| { p.time => p.elevation.round(2) }.flatten }.uniq if geo_points.any?
+    return geo_points.where(activity_id: self.id).reject { |p| p.elevation == nil }.map { |p| { p.time => (p.elevation * 3.28084).round(2) }.flatten }.uniq if geo_points.any?
   end
 
-  # TODO: calculates non-timey pace values
+  def get_geo_points_speed
+    return geo_points.where(activity_id: self.id).reject { |p| p.speed == nil }.map { |p| { p.time => (p.speed * 2.23694).round(2) }.flatten }.uniq if geo_points.any?
+  end
+
+  # TODO: calculates non-timey numerical pace values, currently unused
   def get_geo_points_pace
     return geo_points.where(activity_id: self.id).reject { |p| p.speed == nil }.map { |p| { p.time => (60 / (p.speed * 2.23694)).round(2) }.flatten }.uniq if geo_points.any?
   end
@@ -76,7 +94,15 @@ class Activity < ActiveRecord::Base
   end
 
   def self.activities_in_last_year
-    where(started_at: Time.now.midnight - 365.days .. Time.now.midnight)
+    get_activites_for_period_of(1.year)
+  end
+
+  def self.activities_in_last_month
+    get_activites_for_period_of(1.month)
+  end
+
+  def self.activities_in_last_week
+    get_activites_for_period_of(1.week)
   end
 
   def self.sum_distance
@@ -84,7 +110,7 @@ class Activity < ActiveRecord::Base
   end
 
   def self.sum_elevation_gain
-    sum(:total_elevation_gain)
+    sum(:total_elevation_gain) * 3.28084
   end
 
   def self.sum_time
@@ -150,5 +176,9 @@ class Activity < ActiveRecord::Base
 
     def get_hours(time)
       time / 3600
+    end
+
+    def self.get_activites_for_period_of(period)
+      where(started_at: Time.now.midnight - period .. Time.now.midnight)
     end
 end

@@ -3,19 +3,13 @@ class ActivitiesController < ApplicationController
 
   def index
     @activities = type_class.paginate(page: params[:page])
-    @mileage = type_class.group_mileage_by_month
-    @activities_in_last_year = type_class.activities_in_last_year
-    @distance_in_last_year = @activities_in_last_year.sum_distance
-    @time_in_last_year = @activities_in_last_year.sum_time
-    @elevation_gain_in_last_year = @activities_in_last_year.sum_elevation_gain
+    @activities_in_last_year = type_class.offset(0).activities_in_last_year
+    binding.pry
   end
 
   def show
     @activity = Activity.find(params[:id])
     @polyline = @activity.get_geo_points_lat_lng.to_json
-    @heart_rate = @activity.get_geo_points_heart_rate
-    @elevation = @activity.get_geo_points_elevation
-    @pace = @activity.get_geo_points_pace
   end
 
   def new
@@ -56,6 +50,22 @@ class ActivitiesController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def mileage
+    render json: type_class.group_mileage_by_month
+  end
+
+  def heart_rate
+    render json: type_class.find(params[:id]).get_geo_points_heart_rate
+  end
+
+  def elevation
+    render json: type_class.find(params[:id]).get_geo_points_elevation
+  end
+
+  def speed
+    render json: type_class.find(params[:id]).get_geo_points_speed
   end
 
   private
