@@ -10,4 +10,12 @@ namespace :geo_route do
       run.destroy if Run.all.where(started_at: run.started_at).count > 1
     end
   end
+
+  desc "Import a single GeoRoute file"
+  task :import_single, [:f] => :environment do |task, args|
+    run = Run.new(geo_route: File.new(args[:f]))
+    run.save
+
+    run.destroy if Run.all.where(started_at: run.started_at).count > 1
+  end
 end
