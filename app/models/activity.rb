@@ -26,6 +26,7 @@ class Activity < ActiveRecord::Base
   end
 
   def get_average_pace
+    return '00:00' if average_speed == 0.0
     pace = 60 / (average_speed * 2.23694)
     seconds = (pace.frac * 60).floor
     format("%02d:%02d", pace.fix, seconds)

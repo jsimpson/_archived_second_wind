@@ -4,7 +4,6 @@ class ActivitiesController < ApplicationController
   def index
     @activities = type_class.paginate(page: params[:page])
     @activities_in_last_year = type_class.offset(0).activities_in_last_year
-    binding.pry
   end
 
   def show
