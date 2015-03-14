@@ -39,6 +39,8 @@ Download your GeoRoute files from Garmin (or where ever they end up). I use the 
 
 ### Companion Rake tasks
 
+Importing currently only supports TCX GeoRoute file formats.
+
 #### Bulk importing GeoRoutes
 
 Bulk importing currently requires the GeoRoute files to be in `lib/assets/geo_routes`.
