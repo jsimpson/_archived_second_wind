@@ -27,17 +27,18 @@ class Activity < ActiveRecord::Base
 
   def get_average_pace
     return '00:00' if average_speed == 0.0
-    pace = 60 / (average_speed * 2.23694)
+    pace = (60 / (average_speed * 2.23694)).to_d
     seconds = (pace.frac * 60).floor
     format("%02d:%02d", pace.fix, seconds)
   end
 
   def get_max_speed
-    geo_points.maximum(:speed) * 2.23694
+    max_speed * 2.23694
   end
 
   def get_max_pace
-    pace = 60 / (geo_points.maximum(:speed) * 2.23694)
+    return '00:00' if max_speed == 0.0
+    pace = (60 / (max_speed * 2.23694)).to_d
     seconds = (pace.frac * 60).floor
     format("%02d:%02d", pace.fix, seconds)
   end
@@ -94,16 +95,8 @@ class Activity < ActiveRecord::Base
     unscoped.group_by_month(:started_at, format: "%B %Y").sum(:total_distance).map { |m| { m[0] => (m[1] * 0.000621371).round(2) }.flatten }
   end
 
-  def self.activities_in_last_year
-    get_activites_for_period_of(1.year)
-  end
-
-  def self.activities_in_last_month
-    get_activites_for_period_of(1.month)
-  end
-
-  def self.activities_in_last_week
-    get_activites_for_period_of(1.week)
+  def self.get_activites_for_period_of(period = 1.year)
+    where(started_at: Time.now.midnight - period .. Time.now.midnight)
   end
 
   def self.sum_distance
@@ -140,6 +133,8 @@ class Activity < ActiveRecord::Base
       self.update_column(:total_elevation_loss, route.total_descent)
       self.update_column(:total_time, route.total_time)
       self.update_column(:total_distance, route.total_distance)
+      self.update_column(:max_speed, route.maximum_speed)
+      self.update_column(:min_speed, route.minimum_speed)
       self.update_column(:average_speed, route.average_speed)
       self.update_column(:max_elevation, route.maximum_elevation)
       self.update_column(:min_elevation, route.minimum_elevation)

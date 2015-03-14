@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150308191917) do
+ActiveRecord::Schema.define(version: 20150314065024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20150308191917) do
     t.string   "geo_route_content_type"
     t.integer  "geo_route_file_size"
     t.datetime "geo_route_updated_at"
+    t.float    "max_speed"
+    t.float    "min_speed"
   end
 
   create_table "geo_points", force: :cascade do |t|

@@ -20,10 +20,10 @@
           %th Elevation Gain
       %tbody
         %tr
-          %td= @activities.activities_in_last_year.count
-          %td= "#{number_with_precision(@activities.activities_in_last_year.sum_distance, precision: 2, delimiter: ',')} miles"
-          %td= @activities.activities_in_last_year.sum_time
-          %td= "#{number_with_precision(@activities.activities_in_last_year.sum_elevation_gain, precision: 2, delimiter: ',')} ft"
+          %td= @activities_in_last_year.count
+          %td= "#{number_with_precision(@activities_in_last_year.sum_distance, precision: 2, delimiter: ',')} miles"
+          %td= @activities_in_last_year.sum_time
+          %td= "#{number_with_precision(@activities_in_last_year.sum_elevation_gain, precision: 2, delimiter: ',')} ft"
     -#%h2 Last Month
     -#%table.table.table-striped
       %thead
