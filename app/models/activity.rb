@@ -91,6 +91,10 @@ class Activity < ActiveRecord::Base
     return geo_points.where(activity_id: self.id).reject { |p| p.speed == nil }.map { |p| { p.time => (60 / (p.speed * 2.23694)).round(2) }.flatten }.uniq if geo_points.any?
   end
 
+  def self.analytics
+    unscoped.group_by_day_of_week(:started_at, format: "%A").count
+  end
+
   def self.group_mileage_by_month
     unscoped.group_by_month(:started_at, format: "%B %Y").sum(:total_distance).map { |m| { m[0] => (m[1] * 0.000621371).round(2) }.flatten }
   end

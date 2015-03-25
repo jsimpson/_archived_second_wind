@@ -51,6 +51,10 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def analytics
+    @analytics = type_class.analytics
+  end
+
   def mileage
     render json: type_class.group_mileage_by_month
   end
