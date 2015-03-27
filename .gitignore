@@ -19,3 +19,6 @@ config/secrets.yml
 
 *.tcx
 *.gpx
+
+.vagrant/*
+cookbooks/*
