@@ -29,6 +29,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'meta_request'
   gem 'peek'
   gem 'pry'
   gem 'pry-rails'
