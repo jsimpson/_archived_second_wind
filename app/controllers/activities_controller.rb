@@ -52,7 +52,8 @@ class ActivitiesController < ApplicationController
   end
 
   def analytics
-    @analytics = type_class.analytics
+    @by_day_of_week = type_class.analytics_by_day_of_week
+    @by_month = type_class.analytics_by_month_of_year
   end
 
   def mileage

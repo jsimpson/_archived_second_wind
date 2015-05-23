@@ -60,7 +60,7 @@ class Activity < ActiveRecord::Base
   end
 
   def update_route
-    if !geo_route.nil?
+    unless geo_route.nil?
       format = get_format
       file = File.open(geo_route.path)
       route = Broutes.from_file(file, format)
@@ -91,8 +91,12 @@ class Activity < ActiveRecord::Base
     return geo_points.where(activity_id: self.id).reject { |p| p.speed == nil }.map { |p| { p.time => (60 / (p.speed * 2.23694)).round(2) }.flatten }.uniq if geo_points.any?
   end
 
-  def self.analytics
+  def self.analytics_by_day_of_week
     unscoped.group_by_day_of_week(:started_at, format: "%A").count
+  end
+
+  def self.analytics_by_month_of_year
+    unscoped.group_by_month_of_year(:started_at, format: "%B").count
   end
 
   def self.group_mileage_by_month
