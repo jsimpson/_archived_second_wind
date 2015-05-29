@@ -62,16 +62,21 @@ describe Activity, type: :model do
     end
 
     describe '#get_min_speed' do
-      pending 'needs to be implemented...'
-    end
-
-    describe '#get_min_pace' do
-      pending 'needs to be implemented...'
+      it 'should convert the min speed from kilometers per hour to miles per hour' do
+        expect(activity.min_speed).to be_within(0.1).of(0.3)
+        expect(activity.get_min_speed).to be_within(0.1).of(0.6)
+      end
     end
 
     describe '#get_max_pace' do
       it 'should return the max pace string in miutes per mile format' do
         expect(activity.get_max_pace).to eql('06:24')
+      end
+    end
+
+    describe '#get_min_pace' do
+      it 'should return the min pace string in miutes per mile format' do
+        expect(activity.get_min_pace).to eql('86:31')
       end
     end
 

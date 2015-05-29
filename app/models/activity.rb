@@ -44,9 +44,20 @@ class Activity < ActiveRecord::Base
     max_speed * 2.23694
   end
 
+  def get_min_speed
+    min_speed * 2.23694
+  end
+
   def get_max_pace
     return '00:00' if max_speed == 0.0
     pace = (60 / (max_speed * 2.23694)).to_d
+    seconds = (pace.frac * 60).floor
+    format('%02d:%02d', pace.fix, seconds)
+  end
+
+  def get_min_pace
+    return '00:00' if min_speed == 0.0
+    pace = (60 / (min_speed * 2.23694)).to_d
     seconds = (pace.frac * 60).floor
     format('%02d:%02d', pace.fix, seconds)
   end
