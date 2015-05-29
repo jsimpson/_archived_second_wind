@@ -1,7 +1,7 @@
 %table.table.table-striped
   %thead
     %tr
-      %th{rowspan: 2} Type
+      %th{rowspan: 2}
       %th{rowspan: 2} Started At
       %th{colspan: 2} Totals
       %th{colspan: 2} Timing
@@ -20,8 +20,8 @@
   %tbody
     - activities.each do |activity|
       %tr
-        %td= link_to activity.type, activity_path(activity)
-        %td= activity.started_at.localtime.to_s(:long)
+        %td= link_to 'Delete', activity_path(activity), method: 'delete', class: 'btn btn-mini btn-danger'
+        %td= link_to activity.started_at.localtime.to_s(:long), activity_path(activity)
         %td= "#{number_with_precision(activity.get_total_distance, precision: 2)} miles"
         %td= activity.elapsed_time
         %td= "#{number_with_precision(activity.get_average_speed, precision: 2)} mph"
@@ -31,4 +31,3 @@
         %td= "#{number_with_precision(activity.max_elevation, precision: 2)} ft"
         %td= "#{activity.max_heart_rate} bpm"
         %td= "#{activity.average_heart_rate} bpm"
-        %td= link_to 'Edit', edit_activity_path(activity), class: 'btn btn-mini btn-default'

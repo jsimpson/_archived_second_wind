@@ -10,7 +10,7 @@ class Activity < ActiveRecord::Base
 
   validates_attachment_file_name :geo_route, matches: [/gpx\Z/, /tcx\Z/]
 
-  after_save :update_route
+  before_create :update_route
 
   default_scope -> { order('started_at DESC') }
 

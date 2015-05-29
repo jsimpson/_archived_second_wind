@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  resources :activities
-  resources :runs, controller: 'activities', type: 'Run'
-  resources :rides, controller: 'activities', type: 'Ride'
+  resources :activities, only: [ :index, :show, :destroy ]
+  resources :runs, controller: 'activities', type: 'Run', only: [ :index, :show, :destroy ]
+  resources :rides, controller: 'activities', type: 'Ride', only: [ :index, :show, :destroy ]
+
   root 'activities#index'
 
   get 'lifetime_monthly_mileage' => 'activities#mileage', :as => :activities_mileage

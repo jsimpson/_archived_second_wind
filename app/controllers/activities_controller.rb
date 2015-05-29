@@ -13,44 +13,12 @@ class ActivitiesController < ApplicationController
     @polyline = @activity.get_geo_points_lat_lng.to_json
   end
 
-  def new
-    @activity = Activity.new
-    @types = Activity.types
-  end
-
-  def create
-    @activity = Activity.new(activity_params)
-    @types = Activity.types
-    if @activity.save
-      redirect_to activities_url
-    else
-      render 'new'
-    end
-  end
-
-  def edit
-    @activity = Activity.find(params[:id])
-    @types = Activity.types
-  end
-
-  def update
-    @activity = Activity.find(params[:id])
-    if @activity.update_attributes(activity_params)
-      flash.now[:success] = 'Changes saved'
-      redirect_to @activity
-    else
-      render 'edit'
-    end
-  end
-
   def destroy
-    activity = Activity.find(params[:id])
-    if activity.destroy
+    @activity = Activity.find(params[:id])
+    if @activity.destroy
       flash.now[:success] = 'Activity successfully deleted'
-      redirect_to activities_url
-    else
-      render 'edit'
     end
+    redirect_to activities_url
   end
 
   def analytics
