@@ -1,0 +1,13 @@
+%table.table.table-striped
+  %thead
+    %tr
+      %th Activities
+      %th Distance
+      %th Time
+      %th Elevation Gain
+  %tbody
+    %tr
+      %td= activities.count
+      %td= "#{number_with_precision(activities.sum_distance, precision: 2, delimiter: ',')} miles"
+      %td= activities.sum_time
+      %td= "#{number_with_precision(activities.sum_elevation_gain, precision: 2, delimiter: ',')} ft"

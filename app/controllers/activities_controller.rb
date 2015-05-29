@@ -4,6 +4,8 @@ class ActivitiesController < ApplicationController
   def index
     @activities = type_class.paginate(page: params[:page])
     @activities_in_last_year = type_class.offset(0).get_activites_for_period_of(1.year)
+    @activities_in_last_month = type_class.offset(0).get_activites_for_period_of(1.month)
+    @activities_in_last_week = type_class.offset(0).get_activites_for_period_of(1.week)
   end
 
   def show
@@ -34,7 +36,7 @@ class ActivitiesController < ApplicationController
   def update
     @activity = Activity.find(params[:id])
     if @activity.update_attributes(activity_params)
-      flash.now[:success] = "Changes saved"
+      flash.now[:success] = 'Changes saved'
       redirect_to @activity
     else
       render 'edit'
@@ -44,7 +46,7 @@ class ActivitiesController < ApplicationController
   def destroy
     activity = Activity.find(params[:id])
     if activity.destroy
-      flash.now[:success] = "Activity successfully deleted"
+      flash.now[:success] = 'Activity successfully deleted'
       redirect_to activities_url
     else
       render 'edit'
@@ -74,19 +76,19 @@ class ActivitiesController < ApplicationController
 
   private
 
-    def activity_params
-      params.require(type.underscore.to_sym).permit(:type, :geo_route)
-    end
+  def activity_params
+    params.require(type.underscore.to_sym).permit(:type, :geo_route)
+  end
 
-    def set_type
-      @type = type
-    end
+  def set_type
+    @type = type
+  end
 
-    def type
-      Activity.types.include?(params[:type]) ? params[:type] : 'Activity'
-    end
+  def type
+    Activity.types.include?(params[:type]) ? params[:type] : 'Activity'
+  end
 
-    def type_class
-      type.constantize
-    end
+  def type_class
+    type.constantize
+  end
 end

@@ -38,8 +38,9 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'rubocop'
-  gem 'spring'
   gem 'web-console'
+  gem 'sandi_meter'
+  gem 'brakeman'
 end
 
 group :doc do

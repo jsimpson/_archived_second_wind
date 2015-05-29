@@ -10,83 +10,19 @@
     = line_chart activities_mileage_url, library: { title: 'Lifetime Mileage by Month', vAxis: { title: 'Miles', titleTextStyle: { fontName: 'Helvetica' }}, titleTextStyle: { fontName: 'Helvetica' }}
 
   .page-header
-    %h2 Last 12 Months
-    %table.table.table-striped
-      %thead
-        %tr
-          %th Activities
-          %th Distance
-          %th Time
-          %th Elevation Gain
-      %tbody
-        %tr
-          %td= @activities_in_last_year.count
-          %td= "#{number_with_precision(@activities_in_last_year.sum_distance, precision: 2, delimiter: ',')} miles"
-          %td= @activities_in_last_year.sum_time
-          %td= "#{number_with_precision(@activities_in_last_year.sum_elevation_gain, precision: 2, delimiter: ',')} ft"
-    -#%h2 Last Month
-    -#%table.table.table-striped
-      %thead
-        %tr
-          %th Activities
-          %th Distance
-          %th Time
-          %th Elevation Gain
-      %tbody
-        %tr
-          %td= @activities.activities_in_last_month.count
-          %td= "#{number_with_precision(@activities.activities_in_last_month.sum_distance, precision: 2, delimiter: ',')} miles"
-          %td= @activities.activities_in_last_month.sum_time
-          %td= "#{number_with_precision(@activities.activities_in_last_month.sum_elevation_gain, precision: 2, delimiter: ',')} ft"
-    -#%h2 Last Week
-    -#%table.table.table-striped
-      %thead
-        %tr
-          %th Activities
-          %th Distance
-          %th Time
-          %th Elevation Gain
-      %tbody
-        %tr
-          %td= @activities.activities_in_last_week.count
-          %td= "#{number_with_precision(@activities.activities_in_last_week.sum_distance, precision: 2, delimiter: ',')} miles"
-          %td= @activities.activities_in_last_week.sum_time
-          %td= "#{number_with_precision(@activities.activities_in_last_week.sum_elevation_gain, precision: 2, delimiter: ',')} ft"
+    - if @activities_in_last_year.any?
+      %h2 Last Year
+      = render :partial => 'period_of', locals: { activities: @activities_in_last_year }
+
+    - if @activities_in_last_month.any?
+      %h2 Last Month
+      = render :partial => 'period_of', locals: { activities: @activities_in_last_month }
+
+    - if @activities_in_last_week.any?
+      %h2 Last Week
+      = render :partial => 'period_of', locals: { activities: @activities_in_last_week }
 
   .span6.offset3
     = will_paginate @activities, renderer: BootstrapPagination::Rails
 
-  %table.table.table-striped
-    %thead
-      %tr
-        %th{rowspan: 2} Type
-        %th{rowspan: 2} Started At
-        %th{colspan: 2} Totals
-        %th{colspan: 2} Timing
-        %th{colspan: 3} Elevation
-        %th{colspan: 2} Heart Rate
-      %tr
-        %th Distance
-        %th Time
-        %th Avg Speed
-        %th Avg Pace
-        %th Gain
-        %th Loss
-        %th Max
-        %th Max
-        %th Average
-    %tbody
-      - @activities.each do |activity|
-        %tr
-          %td= link_to activity.type, activity_path(activity)
-          %td= activity.started_at.localtime.to_s(:long)
-          %td= "#{number_with_precision(activity.get_total_distance, precision: 2)} miles"
-          %td= activity.elapsed_time
-          %td= "#{number_with_precision(activity.get_average_speed, precision: 2)} mph"
-          %td= "#{number_with_precision(activity.get_average_pace, precision: 2)} min/mile"
-          %td= "#{number_with_precision(activity.total_elevation_gain, precision: 2)} ft"
-          %td= "#{number_with_precision(activity.total_elevation_loss, precision: 2)} ft"
-          %td= "#{number_with_precision(activity.max_elevation, precision: 2)} ft"
-          %td= "#{activity.max_heart_rate} bpm"
-          %td= "#{activity.average_heart_rate} bpm"
-          %td= link_to 'Edit', edit_activity_path(activity), class: 'btn btn-mini btn-default'
+  = render :partial => 'table', locals: { activities: @activities }

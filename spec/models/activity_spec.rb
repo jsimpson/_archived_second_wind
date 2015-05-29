@@ -13,7 +13,7 @@ describe Activity, type: :model do
         expect(run.total_elevation_gain).to be_within(0.1).of(526.79)
         expect(run.total_elevation_loss).to be_within(0.1).of(449.79)
         expect(run.total_time).to eql(8834.0)
-        expect(run.total_distance).to eql(21446)
+        expect(run.total_distance).to eql(21_446)
         expect(run.average_speed).to be_within(0.1).of(2.40)
         expect(run.max_elevation).to be_within(0.1).of(94.8)
         expect(run.min_elevation).to be_within(0.1).of(-11.0)
@@ -29,14 +29,14 @@ describe Activity, type: :model do
       end
     end
 
-    describe "#get_total_distance" do
+    describe '#get_total_distance' do
       it 'should convert the distance to miles' do
-        expect(run.total_distance).to eql(21446)
+        expect(run.total_distance).to eql(21_446)
         expect(run.get_total_distance).to be_within(2).of(13.33)
       end
     end
 
-    describe "#get_average_speed" do
+    describe '#get_average_speed' do
       it 'should convert the average speed to miles per hour' do
         expect(run.average_speed).to be_within(0.1).of(2.40)
         expect(run.get_average_speed).to be_within(0.1).of(5.37)
