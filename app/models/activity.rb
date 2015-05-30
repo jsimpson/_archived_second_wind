@@ -86,36 +86,66 @@ class Activity < ActiveRecord::Base
   end
 
   def get_geo_points_lat_lng
-    return geo_points.to_enum.reject { |p| p.lat.nil? || p.lng.nil? }.map { |p| { lat: p.lat.to_f, lng: p.lng.to_f } } if geo_points.any?
+    return geo_points
+      .to_enum
+      .reject do |p|
+        p.lat.nil? || p.lng.nil?
+      end
+      .map do |p|
+        { lat: p.lat.to_f, lng: p.lng.to_f }
+      end if geo_points.any?
   end
 
   def get_geo_points_heart_rate
-    return geo_points.where(activity_id: id).reject { |p| p.heart_rate.nil? }.map { |p| { p.time => p.heart_rate }.flatten }.uniq if geo_points.any?
+    return geo_points
+      .where(activity_id: id)
+      .reject { |p| p.heart_rate.nil? }
+      .map { |p| { p.time => p.heart_rate }.flatten }
+      .uniq if geo_points.any?
   end
 
   def get_geo_points_elevation
-    return geo_points.where(activity_id: id).reject { |p| p.elevation.nil? }.map { |p| { p.time => (p.elevation * 3.28084).round(2) }.flatten }.uniq if geo_points.any?
+    return geo_points
+      .where(activity_id: id)
+      .reject { |p| p.elevation.nil? }
+      .map { |p| { p.time => (p.elevation * 3.28084).round(2) }.flatten }
+      .uniq if geo_points.any?
   end
 
   def get_geo_points_speed
-    return geo_points.where(activity_id: id).reject { |p| p.speed.nil? }.map { |p| { p.time => (p.speed * 2.23694).round(2) }.flatten }.uniq if geo_points.any?
+    return geo_points
+      .where(activity_id: id)
+      .reject { |p| p.speed.nil? }
+      .map { |p| { p.time => (p.speed * 2.23694).round(2) }.flatten }
+      .uniq if geo_points.any?
   end
 
   # TODO: calculates non-timey numerical pace values, currently unused
   def get_geo_points_pace
-    return geo_points.where(activity_id: id).reject { |p| p.speed.nil? }.map { |p| { p.time => (60 / (p.speed * 2.23694)).round(2) }.flatten }.uniq if geo_points.any?
+    return geo_points
+      .where(activity_id: id)
+      .reject { |p| p.speed.nil? }
+      .map { |p| { p.time => (60 / (p.speed * 2.23694)).round(2) }.flatten }
+      .uniq if geo_points.any?
   end
 
   def self.analytics_by_day_of_week
-    unscoped.group_by_day_of_week(:started_at, format: '%A').count
+    unscoped
+      .group_by_day_of_week(:started_at, format: '%A')
+      .count
   end
 
   def self.analytics_by_month_of_year
-    unscoped.group_by_month_of_year(:started_at, format: '%B').count
+    unscoped
+      .group_by_month_of_year(:started_at, format: '%B')
+      .count
   end
 
   def self.group_mileage_by_month
-    unscoped.group_by_month(:started_at, format: '%B %Y').sum(:total_distance).map { |m| { m[0] => (m[1] * 0.000621371).round(2) }.flatten }
+    unscoped
+      .group_by_month(:started_at, format: '%B %Y')
+      .sum(:total_distance)
+      .map { |m| { m[0] => (m[1] * 0.000621371).round(2) }.flatten }
   end
 
   def self.get_activites_for_period_of(period = 1.year)

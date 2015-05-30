@@ -22,6 +22,7 @@ gem 'groupdate'
 gem 'gmaps4rails'
 gem 'underscore-rails'
 gem 'kaminari'
+gem 'highcharts-rails'
 
 group :development, :test do
   gem 'awesome_print', require: 'ap'
@@ -37,9 +38,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'rubocop'
-  gem 'web-console'
   gem 'sandi_meter'
-  gem 'brakeman'
+  gem 'web-console'
 end
 
 group :doc do

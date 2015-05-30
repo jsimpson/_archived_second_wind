@@ -14,5 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require underscore
+//= require highcharts
+//= require highcharts/highcharts-more
 //= require gmaps/google
 //= require_tree .
