@@ -88,12 +88,8 @@ class Activity < ActiveRecord::Base
   def get_geo_points_lat_lng
     return geo_points
       .to_enum
-      .reject do |p|
-        p.lat.nil? || p.lng.nil?
-      end
-      .map do |p|
-        { lat: p.lat.to_f, lng: p.lng.to_f }
-      end if geo_points.any?
+      .reject { |p| p.lat.nil? || p.lng.nil? }
+      .map { |p| { lat: p.lat.to_f, lng: p.lng.to_f } } if geo_points.any?
   end
 
   def get_geo_points_heart_rate
