@@ -1,4 +1,4 @@
-= javascript_include_tag "//www.google.com/jsapi", "chartkick"
+= javascript_include_tag 'highcharts', 'chartkick'
 
 - provide(:title, 'Analytics')
 
@@ -6,7 +6,7 @@
   %h1 Analytics
 
 .span6.offset3
-  = column_chart @by_day_of_week, library: { title: 'Lifetime Activities by Day', vAxis: { title: 'Activities', titleTextStyle: { fontName: 'Helvetica' }}, titleTextStyle: { fontName: 'Helvetica' }}
+  = column_chart @by_day_of_week
 
 .span6.offset3
-  = column_chart @by_month, library: { title: 'Lifetime Activities by Month', vAxis: { title: 'Activities', titleTextStyle: { fontName: 'Helvetica' }}, titleTextStyle: { fontName: 'Helvetica' }}
+  = column_chart @by_month

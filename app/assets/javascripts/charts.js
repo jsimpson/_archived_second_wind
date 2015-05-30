@@ -53,7 +53,8 @@ $(document).ready(function() {
 
     // redraw the graphs whenever the chart tabs are clicked
     $(document).on("click", "#charts-nav-tab", function() {
-        drawChart(CHART_INDEX_LIFETIME_ACTIVITY, "Mileage", "Lifetime Monthly Mileage", "Mileage"); });
+        drawChart(CHART_INDEX_LIFETIME_ACTIVITY, "Mileage", "Lifetime Monthly Mileage", "Mileage");
+    });
 });
 
 function drawChart(index, legendLabel, titleText, yAxisTitle) {

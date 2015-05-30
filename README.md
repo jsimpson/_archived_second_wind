@@ -1,6 +1,6 @@
 # Second Wind
 
-Second Wind is a self-hosted, anti-social running and cycling logbook.
+Second Wind is a self-hosted, anti-social activity (cycling, hiking, and running) logbook.
 
 :running: This app aims to replicate some of the functionality of Garmin Connect as well as provide additional features and a way to keep your activities yourself.
 
