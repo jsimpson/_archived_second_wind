@@ -3,10 +3,9 @@
 
 = javascript_include_tag "//www.google.com/jsapi", "chartkick"
 
-- provide(:title, "#{@activity.type} @ #{@activity.started_at.localtime.to_s(:long)}")
+- provide(:title, "#{@activity.started_at.localtime.to_s(:long)}")
 
-.page-header
-  %h1= "#{@activity.type} on #{@activity.started_at.localtime.to_s(:long)}"
+%h1= "#{@activity.started_at.localtime.to_s(:long)}"
 
 #map-container
   #map
@@ -55,8 +54,6 @@
       %td= "#{@activity.max_heart_rate} bpm"
       %td= "#{@activity.min_heart_rate} bpm"
       %td= "#{@activity.average_heart_rate} bpm"
-
-.page-header
 
 = area_chart heart_rate_path, library: { vAxis: { title: 'Heart Rate (bpm)', titleTextStyle: { fontName: 'Helvetica' }}, colors: ['#990000']}
 = area_chart elevation_path, library: { vAxis: { title: 'Elevation (ft)', titleTextStyle: { fontName: 'Helvetica' }}, colors: ['#228400']}

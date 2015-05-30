@@ -1,0 +1,22 @@
+%table.table.table-striped
+  %thead
+    %tr
+      %th
+      %th Activities
+      %th Distance
+      %th Time
+      %th Elevation Gain
+      %th Average Heart Rate
+  %tbody
+    %tr
+      %td Last Week
+      = render :partial => 'summary_data', locals: { activities: last_week }
+    %tr
+      %td Last Month
+      = render :partial => 'summary_data', locals: { activities: last_month }
+    %tr
+      %td Last Year
+      = render :partial => 'summary_data', locals: { activities: last_year }
+    %tr
+      %td Lifetime
+      = render :partial => 'summary_data', locals: { activities: lifetime }

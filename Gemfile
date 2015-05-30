@@ -19,10 +19,9 @@ gem 'bootstrap_form'
 gem 'haml-rails'
 gem 'chartkick'
 gem 'groupdate'
-gem 'will_paginate'
-gem 'will_paginate-bootstrap'
 gem 'gmaps4rails'
 gem 'underscore-rails'
+gem 'kaminari'
 
 group :development, :test do
   gem 'awesome_print', require: 'ap'

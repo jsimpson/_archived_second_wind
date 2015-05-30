@@ -14,10 +14,6 @@ class Activity < ActiveRecord::Base
 
   default_scope -> { order('started_at DESC') }
 
-  def self.types
-    %w(Run Ride)
-  end
-
   def elapsed_time
     format('%02d:%02d:%02d',
       get_hours(total_time),
@@ -140,6 +136,10 @@ class Activity < ActiveRecord::Base
     minutes = (t / 60) % 60
     hours = t / 3600
     "#{hours} hrs, #{minutes} mins, #{seconds} secs"
+  end
+
+  def self.average_heart_rate
+    average(:average_heart_rate)
   end
 
   private

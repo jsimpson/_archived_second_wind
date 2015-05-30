@@ -1,0 +1,5 @@
+%td= activities.count
+%td= "#{number_with_precision(activities.sum_distance, precision: 2, delimiter: ',')} miles"
+%td= activities.sum_time
+%td= "#{number_with_precision(activities.sum_elevation_gain, precision: 2, delimiter: ',')} ft"
+%td= "#{number_with_precision(activities.average_heart_rate, precision: 0)} bpm"

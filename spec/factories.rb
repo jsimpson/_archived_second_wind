@@ -13,7 +13,6 @@ FactoryGirl.define do
 
   factory :activity do
     factory :activity_with_summary do
-      type 'Run'
       started_at { DateTime.new(2014, 07, 27, 6, 33, 46, '-7').to_time }
       ended_at { DateTime.new(2014, 07, 27, 9, 01, 00, '-7').to_time }
       total_elevation_gain { 526.79 }
@@ -30,12 +29,8 @@ FactoryGirl.define do
       average_heart_rate { 154 }
     end
 
-    factory :run do
-      type 'Run'
-
-      factory :run_with_geo_route do
-        geo_route { Rack::Test::UploadedFile.new('spec/fixtures/geo_route.tcx', 'application/xml') }
-      end
+    factory :run_with_geo_route do
+      geo_route { Rack::Test::UploadedFile.new('spec/fixtures/geo_route.tcx', 'application/xml') }
     end
   end
 end

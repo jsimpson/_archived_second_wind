@@ -1,0 +1,14 @@
+.tab-content
+  #activities-tab.tab-pane.active
+    %ul.nav.nav-pills
+      %li.active{:role => 'presentation'}
+        %a#table-tab-link{"data-toggle" => "tab", :href => "#table-tab", :role => "tab"} Activities
+      %li{:role => 'presentation'}
+        %a#summary-tab-link{"data-toggle" => "tab", :href => "#summaries-tab", :role => "tab"} Summary
+    .tab-content
+      #table-tab.tab-pane.active
+        = render :partial => 'table', locals: { activities: activities }
+      #summaries-tab.tab-pane
+        = render :partial => 'summary', locals: { lifetime: lifetime, last_year: last_year, last_month: last_month, last_week: last_week }
+  #charts-tab.tab-pane
+    = line_chart activities_mileage_url, library: { title: 'Lifetime Mileage by Month', vAxis: { title: 'Miles', titleTextStyle: { fontName: 'Helvetica' }}, titleTextStyle: { fontName: 'Helvetica' }}
