@@ -63,7 +63,7 @@ function drawChart(index, legendLabel, titleText, yAxisTitle) {
     if (!chartsLoaded[index]) {
         chartsLoaded[index] = true;
 
-        var url = location.protocol + "//" + location.host + location.pathname + apiEndpoints[index];
+        var url = location.protocol + "//" + location.host + apiEndpoints[index];
         var opts = {
             library: {
                 legend: {

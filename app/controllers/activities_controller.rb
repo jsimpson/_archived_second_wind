@@ -2,9 +2,9 @@ class ActivitiesController < ApplicationController
   def index
     @activities = Activity.page(params[:page])
     @lifetime = Activity.all
-    @last_year = Activity.offset(0).get_activites_for_period_of(1.year)
-    @last_month = Activity.offset(0).get_activites_for_period_of(1.month)
-    @last_week = Activity.offset(0).get_activites_for_period_of(1.week)
+    @last_year = Activity.find_by_period(1.year)
+    @last_month = Activity.find_by_period(1.month)
+    @last_week = Activity.find_by_period(1.week)
   end
 
   def show
@@ -28,15 +28,15 @@ class ActivitiesController < ApplicationController
   end
 
   def heart_rate
-    render json: Activity.find(params[:id]).get_geo_points_heart_rate
+    render json: Activity.find(params[:id]).geo_route_heart_rate
   end
 
   def elevation
-    render json: Activity.find(params[:id]).get_geo_points_elevation
+    render json: Activity.find(params[:id]).geo_route_elevation
   end
 
   def speed
-    render json: Activity.find(params[:id]).get_geo_points_speed
+    render json: Activity.find(params[:id]).geo_route_speed
   end
 
   private

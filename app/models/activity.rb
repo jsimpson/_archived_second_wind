@@ -2,16 +2,12 @@ class Activity < ActiveRecord::Base
   has_many :geo_points
 
   has_attached_file :geo_route,
-    url: '/public/geo_routes/:id/:filename',
-    path: ':rails_root:url'
-
+    url: '/public/geo_routes/:id/:filename', path: ':rails_root:url'
   validates_attachment_content_type :geo_route,
     content_type: ['application/xml', 'application/octet-stream']
-
   validates_attachment_file_name :geo_route, matches: [/gpx\Z/, /tcx\Z/]
 
-  after_create :update_route
-
+  after_save :update_route
   default_scope -> { order('started_at DESC') }
 
   def elapsed_time
@@ -74,17 +70,6 @@ class Activity < ActiveRecord::Base
     min_elevation * 3.28084
   end
 
-  def update_route
-    unless geo_route.nil?
-      format = get_format
-      file = File.open(geo_route.path)
-      route = Broutes.from_file(file, format)
-
-      update_activity_summary(route)
-      update_activity_geo_points(route)
-    end
-  end
-
   def get_geo_points_lat_lng
     return geo_points
       .to_enum
@@ -92,25 +77,22 @@ class Activity < ActiveRecord::Base
       .map { |p| { lat: p.lat.to_f, lng: p.lng.to_f } } if geo_points.any?
   end
 
-  def get_geo_points_heart_rate
+  def geo_route_heart_rate
     return geo_points
-      .where(activity_id: id)
       .reject { |p| p.heart_rate.nil? }
       .map { |p| { p.time => p.heart_rate }.flatten }
       .uniq if geo_points.any?
   end
 
-  def get_geo_points_elevation
+  def geo_route_elevation
     return geo_points
-      .where(activity_id: id)
       .reject { |p| p.elevation.nil? }
       .map { |p| { p.time => (p.elevation * 3.28084).round(2) }.flatten }
       .uniq if geo_points.any?
   end
 
-  def get_geo_points_speed
+  def geo_route_speed
     return geo_points
-      .where(activity_id: id)
       .reject { |p| p.speed.nil? }
       .map { |p| { p.time => (p.speed * 2.23694).round(2) }.flatten }
       .uniq if geo_points.any?
@@ -119,7 +101,6 @@ class Activity < ActiveRecord::Base
   # TODO: calculates non-timey numerical pace values, currently unused
   def get_geo_points_pace
     return geo_points
-      .where(activity_id: id)
       .reject { |p| p.speed.nil? }
       .map { |p| { p.time => (60 / (p.speed * 2.23694)).round(2) }.flatten }
       .uniq if geo_points.any?
@@ -144,7 +125,7 @@ class Activity < ActiveRecord::Base
       .map { |m| { m[0] => (m[1] * 0.000621371).round(2) }.flatten }
   end
 
-  def self.get_activites_for_period_of(period = 1.year)
+  def self.find_by_period(period = 1.year)
     where(started_at: Time.now - period..Time.now)
   end
 
@@ -169,6 +150,17 @@ class Activity < ActiveRecord::Base
   end
 
   private
+
+  def update_route
+    unless geo_route.nil?
+      format = get_format
+      file = File.open(geo_route.path)
+      route = Broutes.from_file(file, format)
+
+      update_activity_summary(route)
+      update_activity_geo_points(route) unless geo_points.any?
+    end
+  end
 
   def get_format
     case File.extname(geo_route.path)
