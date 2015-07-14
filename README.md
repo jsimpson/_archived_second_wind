@@ -4,6 +4,8 @@ Second Wind is a self-hosted, anti-social activity (cycling, hiking, and running
 
 :running: This app aims to replicate some of the functionality of Garmin Connect as well as provide additional features and, most importantly, a way to keep your activities yourself.
 
+Note that, I'm an American and this app is currently hard-coded to support Imperial units. There are plans to provide users with the ability to toggle Imperial units on (since GeoRoutes already store data in metric) but it's not currently a priority.
+
 ## Features
 
 + Lifetime mileage charting (by month) (thanks to [Chartkick](https://github.com/ankane/chartkick) with [Groupdate](https://github.com/ankane/groupdate)) as well as the individual activities heart rate, elevation, and speed profiles
