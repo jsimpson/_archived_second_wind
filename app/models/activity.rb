@@ -10,67 +10,7 @@ class Activity < ActiveRecord::Base
   after_save :update_route
   default_scope -> { order('started_at DESC') }
 
-  def elapsed_time
-    format('%02d:%02d:%02d',
-      get_hours(total_time),
-      get_minutes(total_time),
-      get_seconds(total_time))
-  end
-
-  def get_total_distance
-    total_distance * 0.000621371
-  end
-
-  def get_average_speed
-    average_speed * 2.23694
-  end
-
-  def get_average_pace
-    return '00:00' if average_speed == 0.0
-    pace = (60 / (average_speed * 2.23694)).to_d
-    seconds = (pace.frac * 60).floor
-    format('%02d:%02d', pace.fix, seconds)
-  end
-
-  def get_max_speed
-    max_speed * 2.23694
-  end
-
-  def get_min_speed
-    min_speed * 2.23694
-  end
-
-  def get_max_pace
-    return '00:00' if max_speed == 0.0
-    pace = (60 / (max_speed * 2.23694)).to_d
-    seconds = (pace.frac * 60).floor
-    format('%02d:%02d', pace.fix, seconds)
-  end
-
-  def get_min_pace
-    return '00:00' if min_speed == 0.0
-    pace = (60 / (min_speed * 2.23694)).to_d
-    seconds = (pace.frac * 60).floor
-    format('%02d:%02d', pace.fix, seconds)
-  end
-
-  def get_total_elevation_gain
-    total_elevation_gain * 3.28084
-  end
-
-  def get_total_elevation_loss
-    total_elevation_loss * 3.28084
-  end
-
-  def get_max_elevation
-    max_elevation * 3.28084
-  end
-
-  def get_min_elevation
-    min_elevation * 3.28084
-  end
-
-  def get_geo_points_lat_lng
+  def geo_points_lat_lng
     return geo_points
       .to_enum
       .reject { |p| p.lat.nil? || p.lng.nil? }
@@ -99,7 +39,7 @@ class Activity < ActiveRecord::Base
   end
 
   # TODO: calculates non-timey numerical pace values, currently unused
-  def get_geo_points_pace
+  def geo_points_pace
     return geo_points
       .reject { |p| p.speed.nil? }
       .map { |p| { p.time => (60 / (p.speed * 2.23694)).round(2) }.flatten }
@@ -205,17 +145,5 @@ class Activity < ActiveRecord::Base
 
       geo_point.save
     end
-  end
-
-  def get_seconds(time)
-    time % 60
-  end
-
-  def get_minutes(time)
-    (time / 60) % 60
-  end
-
-  def get_hours(time)
-    time / 3600
   end
 end

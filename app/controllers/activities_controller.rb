@@ -9,7 +9,8 @@ class ActivitiesController < ApplicationController
 
   def show
     @activity = Activity.find(params[:id])
-    @polyline = @activity.get_geo_points_lat_lng.to_json
+    @activity_presenter = ActivityPresenter.new(@activity)
+    @polyline = @activity.geo_points_lat_lng.to_json
   end
 
   def destroy
