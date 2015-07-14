@@ -2,7 +2,7 @@
 
 Second Wind is a self-hosted, anti-social activity (cycling, hiking, and running) logbook.
 
-:running: This app aims to replicate some of the functionality of Garmin Connect as well as provide additional features and a way to keep your activities yourself.
+:running: This app aims to replicate some of the functionality of Garmin Connect as well as provide additional features and, most importantly, a way to keep your activities yourself.
 
 ## Features
 
@@ -60,7 +60,7 @@ Execute the `geo_route:import_single` rake task to import a single GeoRoute file
 bundle exec rake geo_route:import_single[path/to/geo_route.tcx]
 ```
 
-Note that if you're using `zsh` you need to escape the []:
+Note that if you're using `zsh` you will need to escape the []:
 
 ```sh
 bundle exec rake geo_route:import_single\[path/to/geo_route.tcx\]
