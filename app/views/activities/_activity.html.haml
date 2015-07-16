@@ -5,6 +5,7 @@
     %td= link_to activity_presenter.started_at, activity_path(activity)
     %td= "#{number_with_precision(activity_presenter.total_distance, precision: 2)} miles"
     %td= activity_presenter.elapsed_time
+    %td= "#{number_with_delimiter(activity.total_calories)}"
     %td= "#{number_with_precision(activity_presenter.average_speed, precision: 2)} mph"
     %td= "#{number_with_precision(activity_presenter.average_pace, precision: 2)} min/mile"
     %td= "#{number_with_precision(activity_presenter.total_elevation_gain, precision: 2)} ft"

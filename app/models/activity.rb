@@ -128,6 +128,7 @@ class Activity < ActiveRecord::Base
     update_column(:max_heart_rate, route.maximum_heart_rate)
     update_column(:min_heart_rate, route.minimum_heart_rate)
     update_column(:average_heart_rate, route.average_heart_rate)
+    update_column(:total_calories, route.total_calories)
   end
 
   def update_activity_laps(route)
