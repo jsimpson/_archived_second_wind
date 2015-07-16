@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150530023011) do
+ActiveRecord::Schema.define(version: 20150716042754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,5 +56,21 @@ ActiveRecord::Schema.define(version: 20150530023011) do
   end
 
   add_index "geo_points", ["activity_id"], name: "index_geo_points_on_activity_id", using: :btree
+
+  create_table "laps", force: :cascade do |t|
+    t.integer  "activity_id"
+    t.datetime "start_time"
+    t.integer  "total_time"
+    t.decimal  "distance"
+    t.integer  "calories"
+    t.decimal  "average_speed"
+    t.decimal  "maximum_speed"
+    t.integer  "average_heart_rate"
+    t.integer  "maximum_heart_rate"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "laps", ["activity_id"], name: "index_laps_on_activity_id", using: :btree
 
 end

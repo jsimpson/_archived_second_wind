@@ -7,8 +7,21 @@
 
 %h1= "#{@activity.started_at.localtime.to_s(:long)}"
 
-#map-container
-  #map
+.row
+  .col-md-4
+    %h2 Laps
+    %table.table.table-striped
+      %thead
+        %tr
+          %th
+          %th Time
+          %th Distance
+          %th Pace
+      %tbody#laps
+        = render 'lap', locals: { laps: @laps }
+  .col-md-8
+    #map-container
+      #map
 
 :javascript
   $(document).ready(function() {

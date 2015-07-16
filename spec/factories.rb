@@ -1,4 +1,7 @@
-FactoryGirl.define do
+FactoryGirl.define do  factory :lap do
+    
+  end
+
   factory :geo_point do
     cadence 1
     distance '9.99'

@@ -1,5 +1,6 @@
 class Activity < ActiveRecord::Base
   has_many :geo_points
+  has_many :laps
 
   has_attached_file :geo_route,
     url: '/public/geo_routes/:id/:filename', path: ':rails_root:url'
@@ -98,6 +99,7 @@ class Activity < ActiveRecord::Base
       route = Broutes.from_file(file, format)
 
       update_activity_summary(route)
+      update_activity_laps(route) unless laps.any?
       update_activity_geo_points(route) unless geo_points.any?
     end
   end
@@ -126,6 +128,24 @@ class Activity < ActiveRecord::Base
     update_column(:max_heart_rate, route.maximum_heart_rate)
     update_column(:min_heart_rate, route.minimum_heart_rate)
     update_column(:average_heart_rate, route.average_heart_rate)
+  end
+
+  def update_activity_laps(route)
+    route.laps.each do |l|
+      lap = Lap.new(
+        activity: self,
+        start_time: l.start_time,
+        total_time: l.total_time,
+        distance: l.distance,
+        calories: l.calories,
+        average_speed: l.average_speed,
+        maximum_speed: l.maximum_speed,
+        average_heart_rate: l.average_heart_rate,
+        maximum_heart_rate: l.maximum_heart_rate
+      )
+
+      lap.save
+    end
   end
 
   def update_activity_geo_points(route)
