@@ -22,4 +22,4 @@
       %th Max
       %th Average
   %tbody#activities
-    = render @activities
+    = render 'activity', locals: { activities: @activities }
