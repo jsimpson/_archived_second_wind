@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe Activity, type: :model do
   context 'run with a geo route file' do
+    logger = Logger.new(STDOUT)
+    logger.level = Logger::FATAL
+    Geocoder.configure(logger: logger)
     Broutes.logger.level = Logger::FATAL
     let(:run) { FactoryGirl.create(:run_with_geo_route) }
     subject { run }
