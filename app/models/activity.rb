@@ -19,8 +19,8 @@ class Activity < ActiveRecord::Base
     end
   end
 
-  after_create :update_route
-  after_create :reverse_geocode, if: ->(obj) { obj.full_address.nil? }
+  after_save :update_route
+  after_save :reverse_geocode, if: ->(obj) { obj.full_address.nil? }
   default_scope -> { order('started_at DESC') }
 
   def geo_points_lat_lng
@@ -105,7 +105,6 @@ class Activity < ActiveRecord::Base
   private
 
   def update_route
-    binding.pry
     unless geo_route.nil?
       format = get_format
       file = File.open(geo_route.path)

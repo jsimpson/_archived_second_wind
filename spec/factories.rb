@@ -15,6 +15,11 @@ FactoryGirl.define do
       max_heart_rate { 173 }
       min_heart_rate { 111 }
       average_heart_rate { 154 }
+      latitude { 34.4332600571215 }
+      longitude { -119.860240537673 }
+      city { 'Goleta' }
+      state { 'California' }
+      country_code { 'US' }
     end
 
     factory :run_with_geo_route do
