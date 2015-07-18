@@ -1,19 +1,4 @@
-FactoryGirl.define do  factory :lap do
-    
-  end
-
-  factory :geo_point do
-    cadence 1
-    distance '9.99'
-    elevation '9.99'
-    heart_rate 1
-    lat '9.99'
-    lng '9.99'
-    power '9.99'
-    speed '9.99'
-    time '2015-03-08 12:19:17'
-  end
-
+FactoryGirl.define do
   factory :activity do
     factory :activity_with_summary do
       started_at { DateTime.new(2014, 07, 27, 6, 33, 46, '-7').to_time }
@@ -35,5 +20,19 @@ FactoryGirl.define do  factory :lap do
     factory :run_with_geo_route do
       geo_route { Rack::Test::UploadedFile.new('spec/fixtures/geo_route.tcx', 'application/xml') }
     end
+  end
+
+  factory :lap do
+    start_time { DateTime.new(2014, 07, 27, 6, 33, 46, '-7').to_time }
+    total_time { 367 }
+    distance { 1_112 }
+    calories { 112 }
+    average_speed { 2.40 }
+    maximum_speed { 4.19 }
+    average_heart_rate { 111 }
+    maximum_heart_rate { 173 }
+  end
+
+  factory :geo_point do
   end
 end
