@@ -8,7 +8,7 @@ class Activity < ActiveRecord::Base
     content_type: ['application/xml', 'application/octet-stream']
   validates_attachment_file_name :geo_route, matches: [/gpx\Z/, /tcx\Z/]
 
-  after_save :update_route
+  after_create :update_route
   default_scope -> { order('started_at DESC') }
 
   def geo_points_lat_lng
