@@ -126,6 +126,8 @@ class Activity < ActiveRecord::Base
   end
 
   def update_activity_summary(route)
+    point = route.points.reject { |p| p.lat.nil? || p.lon.nil? }.first if route.points.any?
+
     update_column(:started_at, route.started_at)
     update_column(:ended_at, route.ended_at)
     update_column(:total_elevation_gain, route.total_ascent)
@@ -141,8 +143,8 @@ class Activity < ActiveRecord::Base
     update_column(:min_heart_rate, route.minimum_heart_rate)
     update_column(:average_heart_rate, route.average_heart_rate)
     update_column(:total_calories, route.total_calories)
-    update_column(:latitude, route.points.first.lat) if route.points.any?
-    update_column(:longitude, route.points.first.lon) if route.points.any?
+    update_column(:latitude, point.lat) if point.present?
+    update_column(:longitude, point.lon) if point.present?
   end
 
   def update_activity_laps(route)
