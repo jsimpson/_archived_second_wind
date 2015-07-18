@@ -19,7 +19,7 @@ class Activity < ActiveRecord::Base
     end
   end
 
-  after_save :update_route
+  after_save :update_route, if: ->(obj) { obj.started_at.nil? }
   after_save :reverse_geocode, if: ->(obj) { obj.full_address.nil? }
   default_scope -> { order('started_at DESC') }
 
