@@ -23,6 +23,7 @@ gem 'gmaps4rails'
 gem 'underscore-rails'
 gem 'kaminari'
 gem 'highcharts-rails'
+gem 'geocoder'
 
 group :development, :test do
   gem 'awesome_print', require: 'ap'
@@ -40,6 +41,11 @@ group :development, :test do
   gem 'rubocop'
   gem 'sandi_meter'
   gem 'web-console'
+end
+
+group :test do
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :doc do

@@ -1,9 +1,12 @@
 require 'rubygems'
+require 'vcr'
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'rspec/its'
+
+include ActionDispatch::TestProcess
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
@@ -15,4 +18,9 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
   config.order = 'random'
   config.include Rails.application.routes.url_helpers
+end
+
+VCR.configure do |c|
+  c.cassette_library_dir = "#{::Rails.root}/spec/fixtures/cassettes"
+  c.hook_into :webmock
 end

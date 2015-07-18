@@ -61,6 +61,10 @@ class ActivityPresenter
     @activity.min_elevation * 3.28084
   end
 
+  def where
+    "#{@activity.city}, #{@activity.state} #{@activity.country_code}"
+  end
+
   private
 
   attr_reader :activity

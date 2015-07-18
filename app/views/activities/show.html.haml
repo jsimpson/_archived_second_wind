@@ -6,6 +6,7 @@
 - provide(:title, "#{@activity.started_at.localtime.to_s(:long)}")
 
 %h1= "#{@activity.started_at.localtime.to_s(:long)}"
+%h2= "#{number_with_precision(@activity_presenter.total_distance, precision: 2)} miles around #{@activity_presenter.where}"
 
 %table.table.table-striped
   %thead

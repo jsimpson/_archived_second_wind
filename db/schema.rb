@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716060749) do
+ActiveRecord::Schema.define(version: 20150718181954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,13 @@ ActiveRecord::Schema.define(version: 20150716060749) do
     t.float    "max_speed"
     t.float    "min_speed"
     t.integer  "total_calories"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "full_address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.string   "country_code"
   end
 
   create_table "geo_points", force: :cascade do |t|

@@ -85,5 +85,13 @@ describe ActivityPresenter do
         expect(presenter.min_elevation).to be_within(0.1).of(-36.0)
       end
     end
+
+    describe '#where' do
+      it 'should display the location where the activity took place' do
+        expect(presenter.where).to include(activity.city)
+        expect(presenter.where).to include(activity.state)
+        expect(presenter.where).to include(activity.country_code)
+      end
+    end
   end
 end

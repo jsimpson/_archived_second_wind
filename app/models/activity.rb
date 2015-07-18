@@ -8,7 +8,19 @@ class Activity < ActiveRecord::Base
     content_type: ['application/xml', 'application/octet-stream']
   validates_attachment_file_name :geo_route, matches: [/gpx\Z/, /tcx\Z/]
 
+  reverse_geocoded_by :latitude, :longitude do |obj, result|
+    if geo = result.first
+      obj.full_address = geo.address
+      obj.city = geo.city
+      obj.state = geo.state
+      obj.country = geo.country
+      obj.country_code = geo.country_code
+      obj.save
+    end
+  end
+
   after_create :update_route
+  after_create :reverse_geocode, if: ->(obj) { obj.full_address.nil? }
   default_scope -> { order('started_at DESC') }
 
   def geo_points_lat_lng
@@ -93,6 +105,7 @@ class Activity < ActiveRecord::Base
   private
 
   def update_route
+    binding.pry
     unless geo_route.nil?
       format = get_format
       file = File.open(geo_route.path)
@@ -129,6 +142,8 @@ class Activity < ActiveRecord::Base
     update_column(:min_heart_rate, route.minimum_heart_rate)
     update_column(:average_heart_rate, route.average_heart_rate)
     update_column(:total_calories, route.total_calories)
+    update_column(:latitude, route.points.first.lat) if route.points.any?
+    update_column(:longitude, route.points.first.lon) if route.points.any?
   end
 
   def update_activity_laps(route)
