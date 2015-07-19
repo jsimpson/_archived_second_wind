@@ -2,9 +2,9 @@ class ActivitiesController < ApplicationController
   def index
     @activities = Activity.page(params[:page])
     @lifetime = Activity.all
-    @last_year = Activity.find_by_period(1.year)
-    @last_month = Activity.find_by_period(1.month)
-    @last_week = Activity.find_by_period(1.week)
+    @last_year = Activity.find_by_period(Time.now.all_year)
+    @last_month = Activity.find_by_period(Time.now.all_month)
+    @last_week = Activity.find_by_period(Time.now.all_week)
   end
 
   def show

@@ -78,8 +78,8 @@ class Activity < ActiveRecord::Base
       .map { |m| { m[0] => (m[1] * 0.000621371).round(2) }.flatten }
   end
 
-  def self.find_by_period(period = 1.year)
-    where(started_at: Time.now - period..Time.now)
+  def self.find_by_period(period = Time.now.all_year)
+    where(started_at: period)
   end
 
   def self.sum_distance

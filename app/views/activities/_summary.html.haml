@@ -10,13 +10,13 @@
       %th Average Heart Rate
   %tbody
     %tr
-      %td Last Week
+      %td This Week
       = render :partial => 'summary_data', locals: { activities: last_week }
     %tr
-      %td Last Month
+      %td This Month
       = render :partial => 'summary_data', locals: { activities: last_month }
     %tr
-      %td Last Year
+      %td This Year
       = render :partial => 'summary_data', locals: { activities: last_year }
     %tr
       %td Lifetime
