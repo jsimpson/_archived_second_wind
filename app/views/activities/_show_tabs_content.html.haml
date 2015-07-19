@@ -14,4 +14,18 @@
 :javascript
   $(document).ready(function() {
     gmaps_draw_route(#{@polyline});
+
+    $(document).on("click", "#summary-charts-nav-tab", function() {
+      redrawCharts();
+    });
+
+    function redrawCharts() {
+      var chartIds = ["#chart-1", "#chart-2", "#chart-3"];
+
+      chartIds.forEach(function(id) {
+        var height = $(id).height();
+        var width = $(id).width();
+        $(id).highcharts().setSize(width, height, doAnimation = false);
+      });
+    }
   });
