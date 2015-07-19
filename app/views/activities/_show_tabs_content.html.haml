@@ -1,0 +1,17 @@
+.tab-content
+  #map-tab.tab-pane.active
+    #map-container
+      #map
+  #summary-charts-tab.tab-pane
+    .col-lg-12
+      %h2 Heart Rate
+      = area_chart heart_rate_path, library: { vAxis: { title: 'Heart Rate (bpm)', titleTextStyle: { fontName: 'Helvetica' }}, colors: ['#990000']}
+      %h2 Elevation
+      = area_chart elevation_path, library: { vAxis: { title: 'Elevation (ft)', titleTextStyle: { fontName: 'Helvetica' }}, colors: ['#228400']}
+      %h2 Speed
+      = area_chart speed_path, library: { vAxis: { title: 'Speed (miles/hr)', titleTextStyle: { fontName: 'Helvetica' }}, colors: ['#0077e6']}
+
+:javascript
+  $(document).ready(function() {
+    gmaps_draw_route(#{@polyline});
+  });
