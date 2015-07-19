@@ -1,4 +1,5 @@
 %td= activities.count
+%td= "#{number_with_delimiter(activities.sum_calories)}"
 %td= "#{number_with_precision(activities.sum_distance, precision: 2, delimiter: ',')} miles"
 %td= activities.sum_time
 %td= "#{number_with_precision(activities.sum_elevation_gain, precision: 2, delimiter: ',')} ft"

@@ -102,6 +102,10 @@ class Activity < ActiveRecord::Base
     average(:average_heart_rate)
   end
 
+  def self.sum_calories
+    sum(:total_calories)
+  end
+
   private
 
   def update_route
