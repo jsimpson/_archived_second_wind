@@ -65,6 +65,14 @@ class ActivityPresenter
     "#{@activity.city}, #{@activity.state} #{@activity.country_code}"
   end
 
+  def trend
+    if @activity.speed_trend >= 0
+      'up'
+    else
+      'down'
+    end
+  end
+
   private
 
   attr_reader :activity

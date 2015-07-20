@@ -93,5 +93,23 @@ describe ActivityPresenter do
         expect(presenter.where).to include(activity.country_code)
       end
     end
+
+    describe "#trend" do
+      context 'when the trend is going up' do
+        it 'should tell us which glyphicon to display' do
+          expect(presenter.trend).to eq('up')
+        end
+      end
+
+      context 'when the trend is going down' do
+        it 'should tell us which glyphicon to display' do
+          slower = FactoryGirl.create(:activity, average_speed: 2.0)
+          slower.update_trends
+          slower_presenter = ActivityPresenter.new(slower)
+
+          expect(slower_presenter.trend).to eq('down')
+        end
+      end
+    end
   end
 end

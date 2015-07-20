@@ -106,6 +106,18 @@ class Activity < ActiveRecord::Base
     sum(:total_calories)
   end
 
+  def update_trends
+    as = Activity.average(:average_speed)
+
+    unless as.nil? || as == 0.0
+      if average_speed > as
+        update_column(:speed_trend, 1)
+      elsif average_speed < as
+        update_column(:speed_trend, -1)
+      end
+    end
+  end
+
   private
 
   def update_route
@@ -116,6 +128,7 @@ class Activity < ActiveRecord::Base
     update_activity_geo_points(route) unless geo_points.any?
     update_activity_laps(route) unless laps.any?
     update_activity_summary(route)
+    update_trends
   end
 
   def get_format

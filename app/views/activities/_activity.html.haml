@@ -1,6 +1,8 @@
 - @activities.each do |activity|
   - activity_presenter = ActivityPresenter.new(activity)
   %tr
+    %td
+      %i{class: "pull-left glyphicon " "glyphicon-arrow-#{activity_presenter.trend}"}
     %td= link_to activity_presenter.started_at, activity_path(activity)
     %td= "#{number_with_precision(activity_presenter.total_distance, precision: 2)} miles"
     %td= activity_presenter.elapsed_time
