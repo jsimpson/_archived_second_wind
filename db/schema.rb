@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150718181954) do
+ActiveRecord::Schema.define(version: 20150720052353) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(version: 20150718181954) do
     t.integer  "min_heart_rate"
     t.integer  "average_heart_rate"
     t.decimal  "quality"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "geo_route_file_name"
     t.string   "geo_route_content_type"
     t.integer  "geo_route_file_size"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20150718181954) do
     t.string   "state"
     t.string   "country"
     t.string   "country_code"
+    t.boolean  "geo_route_processed",    default: false, null: false
   end
 
   create_table "geo_points", force: :cascade do |t|

@@ -19,7 +19,7 @@ class Activity < ActiveRecord::Base
     end
   end
 
-  after_save :update_route, if: ->(obj) { obj.started_at.nil? }
+  after_save :update_route, if: ->(obj) { obj.geo_route_processed == false && obj.geo_route.present? }
   after_save :reverse_geocode, if: ->(obj) { obj.full_address.nil? }
   default_scope -> { order('started_at DESC') }
 
@@ -109,15 +109,13 @@ class Activity < ActiveRecord::Base
   private
 
   def update_route
-    unless geo_route.nil?
-      format = get_format
-      file = File.open(geo_route.path)
-      route = Broutes.from_file(file, format)
+    format = get_format
+    file = File.open(geo_route.path)
+    route = Broutes.from_file(file, format)
 
-      update_activity_summary(route)
-      update_activity_laps(route) unless laps.any?
-      update_activity_geo_points(route) unless geo_points.any?
-    end
+    update_activity_geo_points(route) unless geo_points.any?
+    update_activity_laps(route) unless laps.any?
+    update_activity_summary(route)
   end
 
   def get_format
@@ -149,6 +147,7 @@ class Activity < ActiveRecord::Base
     update_column(:total_calories, route.total_calories)
     update_column(:latitude, point.lat) if point.present?
     update_column(:longitude, point.lon) if point.present?
+    update_column(:geo_route_processed, true)
   end
 
   def update_activity_laps(route)
