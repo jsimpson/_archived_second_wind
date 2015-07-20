@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :activities, only: [ :index, :show, :destroy ]
+  resources :activities, only: [ :index, :show ]
 
   root 'activities#index'
 

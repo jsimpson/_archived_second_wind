@@ -1,7 +1,6 @@
 - @activities.each do |activity|
   - activity_presenter = ActivityPresenter.new(activity)
   %tr
-    %td= link_to 'Delete', activity_path(activity), method: 'delete', class: 'btn btn-mini btn-default', data: { confirm: 'Are you sure you want to delete this activity?' }
     %td= link_to activity_presenter.started_at, activity_path(activity)
     %td= "#{number_with_precision(activity_presenter.total_distance, precision: 2)} miles"
     %td= activity_presenter.elapsed_time

@@ -14,12 +14,6 @@ class ActivitiesController < ApplicationController
     @polyline = @activity.geo_points_lat_lng.to_json
   end
 
-  def destroy
-    @activity = Activity.find(params[:id])
-    flash.now[:success] = 'Activity successfully deleted' if @activity.destroy
-    redirect_to activities_url
-  end
-
   def analytics
     @by_day_of_week = Activity.analytics_by_day_of_week
     @by_month = Activity.analytics_by_month_of_year
