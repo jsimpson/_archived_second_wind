@@ -22,6 +22,9 @@ class Activity < ActiveRecord::Base
   after_save :update_route, if: ->(obj) { obj.geo_route_processed == false && obj.geo_route.present? }
   after_save :reverse_geocode, if: ->(obj) { obj.full_address.nil? }
   default_scope -> { order('started_at DESC') }
+  scope :runs, -> { where(sport: 'Running') }
+  scope :rides, -> { where(sport: 'Biking') }
+  scope :hikes, -> { where(sport: 'Hiking') }
 
   def geo_points_lat_lng
     return geo_points
@@ -87,7 +90,7 @@ class Activity < ActiveRecord::Base
   end
 
   def update_trends
-    as = Activity.average(:average_speed)
+    as = Activity.where(sport: sport).average(:average_speed)
 
     unless as.nil? || as == 0.0
       if average_speed > as
@@ -140,6 +143,7 @@ class Activity < ActiveRecord::Base
     update_column(:total_calories, route.total_calories)
     update_column(:latitude, point.lat) if point.present?
     update_column(:longitude, point.lon) if point.present?
+    update_column(:sport, route.type)
     update_column(:geo_route_processed, true)
   end
 

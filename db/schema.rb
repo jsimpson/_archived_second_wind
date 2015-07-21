@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720152422) do
+ActiveRecord::Schema.define(version: 20150721161146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20150720152422) do
     t.string   "country_code"
     t.boolean  "geo_route_processed",    default: false, null: false
     t.integer  "speed_trend",            default: 0,     null: false
+    t.string   "sport"
   end
 
   create_table "geo_points", force: :cascade do |t|
