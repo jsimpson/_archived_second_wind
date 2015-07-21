@@ -9,8 +9,6 @@ class ActivitiesController < ApplicationController
 
   def show
     @activity = Activity.find(params[:id])
-    @laps = Lap.where(activity: @activity)
-    @activity_presenter = ActivityPresenter.new(@activity)
     @polyline = @activity.geo_points_lat_lng.to_json
   end
 

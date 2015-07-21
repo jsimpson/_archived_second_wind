@@ -5,10 +5,12 @@
 
 - provide(:title, "#{@activity.started_at.localtime.to_s(:long)}")
 
-%h1= "#{@activity.started_at.localtime.to_s(:long)}"
-%h2= "#{number_with_precision(@activity_presenter.total_distance, precision: 2)} miles around #{@activity_presenter.where}"
+- activity_presenter = ActivityPresenter.new(@activity)
 
-= render partial: 'show_summary_table', locals: { activity: @activity, activity_presenter: @activity_presenter }
+%h1= "#{@activity.started_at.localtime.to_s(:long)}"
+%h2= "#{number_with_precision(activity_presenter.total_distance, precision: 2)} miles around #{activity_presenter.where}"
+
+= render partial: 'show_summary_table', locals: { activity: @activity, activity_presenter: activity_presenter }
 
 .row
   .col-lg-4
@@ -21,7 +23,7 @@
           %th Distance
           %th Pace
       %tbody#laps
-        = render 'lap', locals: { laps: @laps }
+        = render 'lap', locals: { activity: @activity }
   .col-lg-8
     = render partial: 'show_tabs_nav'
-    = render partial: 'show_tabs_content', locals: { activity: @activity, activity_presenter: @activity_presenter }
+    = render partial: 'show_tabs_content', locals: { activity: @activity, activity_presenter: activity_presenter }
