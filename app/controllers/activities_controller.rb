@@ -14,11 +14,6 @@ class ActivitiesController < ApplicationController
     @polyline = @activity.geo_points_lat_lng.to_json
   end
 
-  def analytics
-    @by_day_of_week = Activity.analytics_by_day_of_week
-    @by_month = Activity.analytics_by_month_of_year
-  end
-
   def mileage
     render json: Activity.group_mileage_by_month
   end
@@ -33,11 +28,5 @@ class ActivitiesController < ApplicationController
 
   def speed
     render json: Activity.find(params[:id]).geo_route_speed
-  end
-
-  private
-
-  def activity_params
-    params.require(type.underscore.to_sym).permit(:type, :geo_route)
   end
 end

@@ -10,12 +10,11 @@ class Activity < ActiveRecord::Base
 
   reverse_geocoded_by :latitude, :longitude do |obj, result|
     if geo = result.first
-      obj.full_address = geo.address
-      obj.city = geo.city
-      obj.state = geo.state
-      obj.country = geo.country
-      obj.country_code = geo.country_code
-      obj.save
+      update_column(:full_address, geo.address)
+      update_column(:city, geo.city)
+      update_column(:state, geo.state)
+      update_column(:country, geo.country)
+      update_column(:country_code, geo.country_code)
     end
   end
 
@@ -49,26 +48,6 @@ class Activity < ActiveRecord::Base
       .reject { |p| p.speed.nil? }
       .map { |p| { p.time => (p.speed * 2.23694).round(2) }.flatten }
       .uniq if geo_points.any?
-  end
-
-  # TODO: calculates non-timey numerical pace values, currently unused
-  def geo_points_pace
-    return geo_points
-      .reject { |p| p.speed.nil? }
-      .map { |p| { p.time => (60 / (p.speed * 2.23694)).round(2) }.flatten }
-      .uniq if geo_points.any?
-  end
-
-  def self.analytics_by_day_of_week
-    unscoped
-      .group_by_day_of_week(:started_at, format: '%A')
-      .count
-  end
-
-  def self.analytics_by_month_of_year
-    unscoped
-      .group_by_month_of_year(:started_at, format: '%B')
-      .count
   end
 
   def self.group_mileage_by_month
