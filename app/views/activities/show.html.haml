@@ -14,16 +14,7 @@
 
 .row
   .col-lg-4
-    %h2 Laps
-    %table.table.table-striped
-      %thead
-        %tr
-          %th
-          %th Time
-          %th Distance
-          %th Pace
-      %tbody#laps
-        = render 'lap', locals: { activity: @activity }
+    = render partial: 'show_laps_table', locals: { activity: @activity }
   .col-lg-8
     = render partial: 'show_tabs_nav'
     = render partial: 'show_tabs_content', locals: { activity: @activity, activity_presenter: activity_presenter }
