@@ -2,19 +2,20 @@
 
 Second Wind is a self-hosted, anti-social activity (cycling, hiking, and running) logbook.
 
-:running: This app aims to replicate some of the functionality of Garmin Connect as well as provide additional features and, most importantly, a way to keep your activities yourself.
+:running: This app aims to replicate some of the core functionality of Garmin Connect, as well as provide some additional features and, most importantly to me, a way to keep your activities (data) yourself.
 
-Note that, I'm an American and this app is currently hard-coded to support Imperial units. There are plans to provide users with the ability to toggle Imperial units on (since GeoRoutes already store data in metric) but it's not currently a priority.
+Please note that I'm an American and this app is currently *hard-coded* to support Imperial units. There are plans to provide the ability to toggle Imperial units on (since GeoRoutes already store data in metric units) but it's not currently a priority (sorry, everyone else in the world).
 
 ## Features
 
-+ Lifetime mileage charting (by month) (thanks to [Chartkick](https://github.com/ankane/chartkick) with [Groupdate](https://github.com/ankane/groupdate)) as well as the individual activities heart rate, elevation, and speed profiles
++ Lifetime mileage charting (by month) (thanks to [Chartkick](https://github.com/ankane/chartkick) with [Groupdate](https://github.com/ankane/groupdate)).
++ Individual activity heart rate, elevation, and speed profile charting.
 + Google Maps integration with the [Google-Maps-for-Rails](https://github.com/apneadiving/Google-Maps-for-Rails) gem for individual activity route map overlays.
 + Importing GeoRoute files in bulk or individually.
 
 ### GeoRoutes
 
-This app uses the excellent [Broutes](https://github.com/adambird/broutes) Ruby gem for processing GeoRoute files. It supports the GPS Exchange File Format (.gpx) and the Garmin Training Center File Format (.tcx).
+This app uses the very excellent [Broutes](https://github.com/adambird/broutes) Ruby gem for processing GeoRoute files. Second Wind currently only supports the GPS Exchange File Format (.gpx) and the Garmin Training Center File Format (.tcx).
 
 ## Installation
 
@@ -37,7 +38,7 @@ bundle exec rake db:create
 bundle exec rake db:migrate
 ```
 
-Download your GeoRoute files from Garmin (or where ever they end up). I use the [Disconnect](https://gist.github.com/jsimpson/174beffe4e32222cf4da) script to download my GeoRoute files from Garmin Connect. If you use a different GPS vendor you'll need to obtain your GeoRoute files another way.
+Download your GeoRoute files from Garmin (or where ever they end up). I use the [Disconnect](https://gist.github.com/jsimpson/174beffe4e32222cf4da) script to download (scrape) my GeoRoute files from Garmin Connect. If you use a different GPS vendor, you'll need to obtain your GeoRoute files another way.
 
 ### Companion Rake tasks
 
