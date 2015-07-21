@@ -9,7 +9,6 @@ class ActivitiesController < ApplicationController
 
   def show
     @activity = Activity.find(params[:id])
-    @polyline = @activity.geo_points_lat_lng.to_json
   end
 
   def mileage
