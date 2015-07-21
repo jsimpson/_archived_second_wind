@@ -10,11 +10,12 @@ class Activity < ActiveRecord::Base
 
   reverse_geocoded_by :latitude, :longitude do |obj, result|
     if geo = result.first
-      update_column(:full_address, geo.address)
-      update_column(:city, geo.city)
-      update_column(:state, geo.state)
-      update_column(:country, geo.country)
-      update_column(:country_code, geo.country_code)
+      obj.full_address = geo.address
+      obj.city = geo.city
+      obj.state = geo.state
+      obj.country = geo.country
+      obj.country_code = geo.country_code
+      obj.save
     end
   end
 
