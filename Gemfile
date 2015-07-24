@@ -8,8 +8,6 @@ gem 'sass-rails'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
-gem 'unicorn'
-gem 'unicorn-rails'
 gem 'broutes', git: 'git://github.com/jsimpson/broutes', ref: '9c2b3b0'
 gem 'paperclip'
 gem 'bootstrap-sass'
@@ -42,6 +40,8 @@ group :development, :test do
   gem 'rubocop'
   gem 'sandi_meter'
   gem 'web-console'
+  gem 'unicorn'
+  gem 'unicorn-rails'
 end
 
 group :test do
