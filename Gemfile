@@ -40,6 +40,7 @@ group :development, :test do
   gem 'rspec-its'
   gem 'rubocop'
   gem 'sandi_meter'
+  gem 'seed_dump'
   gem 'web-console'
 end
 

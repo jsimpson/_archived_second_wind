@@ -262,6 +262,9 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    seed_dump (3.2.2)
+      activerecord (~> 4)
+      activesupport (~> 4)
     sexp_processor (4.6.0)
     slop (3.6.0)
     sprockets (3.2.0)
@@ -334,6 +337,7 @@ DEPENDENCIES
   sandi_meter
   sass-rails
   sdoc (~> 0.4.0)
+  seed_dump
   sprockets
   therubyracer
   thin
