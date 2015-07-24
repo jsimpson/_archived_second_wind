@@ -24,6 +24,8 @@ describe Activity, type: :model do
           expect(run.max_heart_rate).to eql(173)
           expect(run.min_heart_rate).to eql(111)
           expect(run.average_heart_rate).to eql(154)
+          expect(run.speed_trend).to eql(0)
+          expect(run.sport).to eql('Running')
         end
       end
     end

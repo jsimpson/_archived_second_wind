@@ -22,3 +22,5 @@ config/secrets.yml
 
 .vagrant/*
 cookbooks/*
+
+/config/deploy.rb

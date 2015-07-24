@@ -102,12 +102,19 @@ describe ActivityPresenter do
       end
 
       context 'when the trend is going down' do
-        it 'should tell us which glyphicon to display' do
-          slower = FactoryGirl.create(:activity, average_speed: 2.0)
-          slower.update_trends
-          slower_presenter = ActivityPresenter.new(slower)
+        logger = Logger.new(STDOUT)
+        logger.level = Logger::FATAL
+        Geocoder.configure(logger: logger)
+        Broutes.logger.level = Logger::FATAL
 
-          expect(slower_presenter.trend).to eq('down')
+        it 'should tell us which glyphicon to display' do
+          VCR.use_cassette('geocoder') do
+            FactoryGirl.create(:activity, sport: 'Running', average_speed: 10.0)
+            slower = FactoryGirl.create(:run_with_geo_route)
+            slower_presenter = ActivityPresenter.new(slower)
+
+            expect(slower_presenter.trend).to eq('down')
+          end
         end
       end
     end
