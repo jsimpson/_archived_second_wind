@@ -67,6 +67,7 @@ task :deploy => :environment do
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
+    invoke :'deploy:cleanup'
 
     to :launch do
       queue %{#{deploy_to}/bin/restart}

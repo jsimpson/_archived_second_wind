@@ -23,6 +23,7 @@ gem 'kaminari'
 gem 'highcharts-rails'
 gem 'geocoder'
 gem 'mina'
+gem 'passenger'
 
 group :development, :test do
   gem 'awesome_print', require: 'ap'
@@ -40,8 +41,6 @@ group :development, :test do
   gem 'rubocop'
   gem 'sandi_meter'
   gem 'web-console'
-  gem 'unicorn'
-  gem 'unicorn-rails'
 end
 
 group :test do
