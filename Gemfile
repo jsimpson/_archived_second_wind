@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.2'
+gem 'rails', '4.2.1'
 gem 'pg'
 gem 'uglifier', '>= 1.3.0'
 gem 'therubyracer'
@@ -24,6 +24,7 @@ gem 'underscore-rails'
 gem 'kaminari'
 gem 'highcharts-rails'
 gem 'geocoder'
+gem 'mina'
 
 group :development, :test do
   gem 'awesome_print', require: 'ap'
