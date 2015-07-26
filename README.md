@@ -13,6 +13,11 @@ Please note that I'm an American and this app is currently *hard-coded* to suppo
 + Google Maps integration with the [Google-Maps-for-Rails](https://github.com/apneadiving/Google-Maps-for-Rails) gem for individual activity route map overlays.
 + Importing GeoRoute files in bulk or individually.
 
+### Planned
+
++ Importing via the app, both bulk or individually.
++ GeoRoute exporting, again both bulk or individually.
+
 ### GeoRoutes
 
 This app uses the very excellent [Broutes](https://github.com/adambird/broutes) Ruby gem for processing GeoRoute files. Second Wind currently only supports the GPS Exchange File Format (.gpx) and the Garmin Training Center File Format (.tcx).
@@ -38,11 +43,11 @@ bundle exec rake db:create
 bundle exec rake db:migrate
 ```
 
-Download your GeoRoute files from Garmin (or where ever they end up). I use the [Disconnect](https://gist.github.com/jsimpson/174beffe4e32222cf4da) script to download (scrape) my GeoRoute files from Garmin Connect. If you use a different GPS vendor, you'll need to obtain your GeoRoute files another way.
+### Import your GeoRoute files`
 
-### Companion Rake tasks
+You will need to download your GeoRoute files from Garmin (or where ever they end up). I use the [Disconnect](https://gist.github.com/jsimpson/174beffe4e32222cf4da) script to download (scrape) my GeoRoute files from Garmin Connect. If you use a different GPS vendor, you'll need to obtain your GeoRoute files another way.
 
-Importing currently only supports TCX GeoRoute file formats.
+Importing is currently only supported via Rake tasks, and *only the TCX GeoRoute file format* is currently supported.
 
 #### Bulk importing GeoRoutes
 
