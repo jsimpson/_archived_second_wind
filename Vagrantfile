@@ -31,13 +31,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Install Ruby 2.1.2 and Bundler
     # Set an empty root password for MySQL to make things simple
     chef.json = {
+      ruby_build: {
+        upgrade: true
+      },
       rbenv: {
         user_installs: [{
           user: 'vagrant',
-          rubies: ["2.1.2"],
-          global: "2.1.2",
+          rubies: ["2.2.2"],
+          global: "2.2.2",
           gems: {
-            "2.1.2" => [
+            "2.2.2" => [
               { name: "bundler" }
             ]
           }
