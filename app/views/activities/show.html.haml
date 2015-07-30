@@ -5,10 +5,10 @@
 
 - provide(:title, "#{@activity.started_at.localtime.to_s(:long)}")
 
-- activity_presenter = ActivityPresenter.new(@activity)
+- activity_presenter = ActivityPresenter.new(@activity, @application_settings.imperial)
 
 %h1= "#{@activity.started_at.localtime.to_s(:long)}"
-%h2= "#{number_with_precision(activity_presenter.total_distance, precision: 2)} miles around #{activity_presenter.where}"
+%h2= "#{activity_presenter.total_distance} around #{activity_presenter.where}"
 
 = render partial: 'show_summary_table', locals: { activity: @activity, activity_presenter: activity_presenter }
 

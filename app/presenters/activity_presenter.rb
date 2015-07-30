@@ -1,6 +1,9 @@
 class ActivityPresenter
-  def initialize(activity)
+  include ActionView::Helpers::NumberHelper
+
+  def initialize(activity, use_imperial)
     @activity = activity
+    @use_imperial = use_imperial
   end
 
   def started_at
@@ -8,57 +11,55 @@ class ActivityPresenter
   end
 
   def elapsed_time
-    format('%02d:%02d:%02d',
-      hours(@activity.total_time),
-      minutes(@activity.total_time),
-      seconds(@activity.total_time))
+    format('%02d:%02d:%02d', hours(@activity.total_time), minutes(@activity.total_time), seconds(@activity.total_time))
   end
 
   def total_distance
-    @activity.total_distance * 0.000621371
+    convert(@activity.total_distance, 0.000621371, 2, 'miles', 'meters')
   end
 
-  def average_speed
-    @activity.average_speed * 2.23694
-  end
-
-  def average_pace
-    return '00:00' if @activity.average_speed == 0.0
-    pace(@activity.average_speed)
+  def total_calories
+    "#{number_with_delimiter(@activity.total_calories)}"
   end
 
   def max_speed
-    @activity.max_speed * 2.23694
+    convert(@activity.max_speed, 2.23694, 2, 'mph', 'km/h')
   end
 
   def min_speed
-    @activity.min_speed * 2.23694
+    convert(@activity.min_speed, 2.23694, 2, 'mph', 'km/h')
+  end
+
+  def average_speed
+    convert(@activity.average_speed, 2.23694, 2, 'mph', 'km/h')
   end
 
   def max_pace
-    return '00:00' if max_speed == 0.0
     pace(@activity.max_speed)
   end
 
   def min_pace
-    return '00:00' if min_speed == 0.0
     pace(@activity.min_speed)
   end
 
+  def average_pace
+    pace(@activity.average_speed)
+  end
+
   def total_elevation_gain
-    @activity.total_elevation_gain * 3.28084
+    elevation(@activity.total_elevation_gain)
   end
 
   def total_elevation_loss
-    @activity.total_elevation_loss * 3.28084
+    elevation(@activity.total_elevation_loss)
   end
 
   def max_elevation
-    @activity.max_elevation * 3.28084
+    elevation(@activity.max_elevation)
   end
 
   def min_elevation
-    @activity.min_elevation * 3.28084
+    elevation(@activity.min_elevation)
   end
 
   def where
@@ -66,21 +67,49 @@ class ActivityPresenter
   end
 
   def trend
-    if @activity.speed_trend >= 0
-      'up'
-    else
-      'down'
-    end
+    @activity.speed_trend >= 0 ? 'up' : 'down'
+  end
+
+  def max_heart_rate
+    "#{activity.max_heart_rate} bpm"
+  end
+
+  def min_heart_rate
+    "#{activity.min_heart_rate} bpm"
+  end
+
+  def average_heart_rate
+    "#{activity.average_heart_rate} bpm"
   end
 
   private
 
-  attr_reader :activity
+  attr_reader :activity, :use_imperial
+
+  def convert(value, conversion_ratio, precision, imperial_unit, metric_unit)
+    units = metric_unit
+
+    if @use_imperial
+      value *= conversion_ratio
+      units = imperial_unit
+    end
+
+    "#{number_with_precision(value, precision: precision)} #{units}"
+  end
 
   def pace(speed)
-    pace = (60 / (speed * 2.23694)).to_d
+    return '00:00' if speed == 0.0
+    units = 'min/km'
+
+    if @use_imperial
+      pace = (60 / (speed * 2.23694)).to_d
+      units = 'min/mile'
+    else
+      pace = (60 / (speed)).to_d
+    end
+
     seconds = (pace.frac * 60).floor
-    format('%02d:%02d', pace.fix, seconds)
+    format('%02d:%02d %s', pace.fix, seconds, units)
   end
 
   def seconds(t)
@@ -93,5 +122,9 @@ class ActivityPresenter
 
   def hours(t)
     t / 3600
+  end
+
+  def elevation(ele)
+    convert(ele, 3.28084, 0, 'ft', 'm')
   end
 end
