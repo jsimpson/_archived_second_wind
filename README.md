@@ -4,14 +4,13 @@ Second Wind is a self-hosted, anti-social activity (cycling, hiking, and running
 
 :running: This app aims to replicate some of the core functionality of Garmin Connect, as well as provide some additional features and, most importantly to me, a way to keep your activities (data) yourself.
 
-Please note that I'm an American and this app is currently *hard-coded* to support Imperial units. There are plans to provide the ability to toggle Imperial units on (since GeoRoutes already store data in metric units) but it's not currently a priority (sorry, everyone else in the world).
-
 ## Features
 
 + Lifetime mileage charting (by month) (thanks to [Chartkick](https://github.com/ankane/chartkick) with [Groupdate](https://github.com/ankane/groupdate)).
 + Individual activity heart rate, elevation, and speed profile charting.
 + Google Maps integration with the [Google-Maps-for-Rails](https://github.com/apneadiving/Google-Maps-for-Rails) gem for individual activity route map overlays.
 + Importing GeoRoute files in bulk or individually.
++ Display data in Imperial or Metric units
 
 ### Planned
 
@@ -41,6 +40,20 @@ Prepare the database
 ```sh
 bundle exec rake db:create
 bundle exec rake db:migrate
+```
+
+Set up the application settings so that it displays data in your prefered units of measurement.
+
+If you're after Imperial units
+
+```sh
+bundle exec rake app_settings:imperial
+```
+
+If you're after Metric units
+
+```sh
+bundle exec rake app_settings:metric
 ```
 
 ### Import your GeoRoute files`
