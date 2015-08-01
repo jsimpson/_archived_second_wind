@@ -7,7 +7,7 @@ class ActivityPresenter
   end
 
   def started_at
-    @activity.started_at.localtime.to_s(:long)
+    @activity.started_at.to_s(:long)
   end
 
   def elapsed_time
