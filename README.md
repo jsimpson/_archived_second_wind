@@ -86,3 +86,13 @@ Note that if you're using `zsh` you will need to escape the []:
 ```sh
 bundle exec rake geo_route:import_single\[path/to/geo_route.tcx\]
 ```
+
+## Notes for hosting on external servers
+
+If you're planning to host this app on an external server you should remember to configure the applications time zone in `config/application.rb`
+
+```ruby
+config.time_zone = 'Pacific Time (US & Canada)'
+```
+
+Also, for what it's worth, I've had great success with [Mina](https://github.com/mina-deploy/mina) for automatically deploying this app to my hosting provider.
