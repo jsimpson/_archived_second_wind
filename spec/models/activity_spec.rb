@@ -26,6 +26,53 @@ describe Activity, type: :model do
           expect(run.average_heart_rate).to eql(154)
           expect(run.speed_trend).to eql(0)
           expect(run.sport).to eql('Running')
+          expect(run.latitude).to be_within(0.1).of(37.79338616877794)
+          expect(run.longitude).to be_within(0.1).of(-122.39200889132917)
+          expect(run.full_address).to eql('3-109 The Embarcadero, San Francisco, CA 94105, USA')
+          expect(run.city).to eql('San Francisco')
+          expect(run.state).to eql('California')
+          expect(run.country).to eql('United States')
+          expect(run.country_code).to eql('US')
+          expect(run.geo_route_processed).to eql(true)
+        end
+      end
+
+      it 'should create the laps and geo_points for the activity' do
+        VCR.use_cassette('geocoder') do
+          expect(run.geo_points.count).to eql(1612)
+          expect(run.laps.count).to eql(14)
+        end
+      end
+    end
+
+    describe '#geo_points_lat_lng' do
+      it 'should return a hash of latitude and longitude points' do
+        VCR.use_cassette('geocoder') do
+          expect(run.geo_points_lat_lng.count).to eq(1610)
+        end
+      end
+    end
+
+    describe '#geo_route_heart_rate' do
+      it 'should return a hash of time => heart_rate items' do
+        VCR.use_cassette('geocoder') do
+          expect(run.geo_route_heart_rate.count).to eq(1603)
+        end
+      end
+    end
+
+    describe '#geo_route_elevation' do
+      it 'should return a hash of time => elevation items' do
+        VCR.use_cassette('geocoder') do
+          expect(run.geo_route_elevation.count).to eq(1602)
+        end
+      end
+    end
+
+    describe '#geo_route_speed' do
+      it 'should return a hash of time => speed items' do
+        VCR.use_cassette('geocoder') do
+          expect(run.geo_route_speed.count).to eq(1602)
         end
       end
     end
