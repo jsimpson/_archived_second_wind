@@ -1,102 +1,87 @@
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import "rails_bootstrap_forms";
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'rails_bootstrap_forms';
 
-@mixin box_sizing {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+$white: #fff;
+$dark-gray: #999;
+$light-gray: #ccc;
+$very-dark-gray: #666;
+$pure-red: #f00;
+
+@mixin box-sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-    overflow-y: scroll;
+  overflow-y: scroll;
 }
 
 body {
-    padding-top: 60px;
+  padding-top: 60px;
 }
 
 section {
-    overflow: auto;
+  overflow: auto;
 }
 
 textarea {
-    resize: vertical;
+  resize: vertical;
 }
 
 .center {
-    text-align: center;
-    h1 {
-        margin-bottom: 10px;
-    }
+  text-align: center;
+
+  h1 {
+    margin-bottom: 10px;
+  }
 }
 
-h1, h2, h3, h4, h5, h6 {
-    line-height: 1;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1;
 }
 
 h1 {
-    font-size: 3em;
-    letter-spacing: -2px;
-    margin-bottom: 30px;
-    text-align: center;
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
 h2 {
-    font-size: 1.3em;
-    letter-spacing: -1px;
-    margin-bottom: 30px;
-    text-align: center;
-    font-weight: normal;
-    color: #999;
+  color: $dark-gray;
+  font-size: 1.3em;
+  font-weight: normal;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
 p {
-    font-size: 1.1em;
-    line-height: 1.7em;
-}
-
-#logo {
-    float: left;
-    margin-right: 10px;
-    font-size: 1.7em;
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: -1px;
-    padding-top: 9px;
-    font-weight: bold;
-    line-height: 1;
-    &:hover {
-        color: #fff;
-        text-decoration: none;
-    }
+  font-size: 1.1em;
+  line-height: 1.7em;
 }
 
 footer {
-    margin-top: 45px;
-    padding-top: 5px;
-    border-top: 1px solid #eaeaea;
-    color: #999;
+  border-top: 1px solid $light-gray;
+  color: $dark-gray;
+  margin-top: 45px;
+  padding-top: 5px;
 }
 
-.debug_dump {
-    clear: both;
-    float: left;
-    width: 100%;
-    margin-top: 45px;
-    @include box_sizing;
-}
-
-.nav-tabs > li > a {
-    color: #777;
+.nav-tabs > li > a,
+.nav-pills > li > a {
+  color: $very-dark-gray;
 }
 
 .nav-pills {
-    padding-top: 20px;
-}
-
-.nav-pills > li > a {
-    color: #777;
+  padding-top: 20px;
 }
 
 .nav-pills > .active > a,
@@ -105,8 +90,8 @@ footer {
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:focus,
 .nav-pills > li.active > a:hover {
-    color: #fff;
-    background-color: #777;
+  background-color: $very-dark-gray;
+  color: $white;
 }
 
 .pagination > li > a,
@@ -115,68 +100,64 @@ footer {
 .pagination > .active > a,
 .pagination > .active > a:focus,
 .pagination > .active > a:hover {
-    color: #777;
-    border: 1px solid #ddd;
+  border: 1px solid $light-gray;
+  color: $very-dark-gray;
 }
 
 .pagination > .active > a {
-    color: #777;
-    background-color: #eee;
+  background-color: $light-gray;
+  color: $very-dark-gray;
 }
 
 .pagination > .active > a:focus,
 .pagination > .active > a:hover {
-    color: #777;
-    background-color: #eee;
+  background-color: $light-gray;
+  color: $very-dark-gray;
 }
 
-input, textarea, select, .uneditable-input {
-    border: 1px solid #bbb;
-    width: 100%;
-    margin-bottom: 15px;
-    @include box_sizing;
+input,
+textarea,
+select,
+.uneditable-input {
+  @include box-sizing;
+  border: 1px solid $light-gray;
+  margin-bottom: 15px;
+  width: 100%;
 }
 
 input {
-    height: auto !important;
+  height: auto;
 }
 
-#submit-button {
-    width: 15%;
+.error-explanation {
+  color: $pure-red;
+
+  ul {
+    list-style: none;
+    margin: 0 0 18px;
+  }
 }
 
-#error_explanation {
-    color: #f00;
-    ul {
-        list-style: none;
-        margin: 0 0 18px 0;
-    }
+.map-container {
+  border-color: $white;
+  border-radius: 16px;
+  border-style: solid;
+  border-width: 7px;
+  box-shadow: 2px 2px 10px $dark-gray;
+  height: 400px;
+  margin-top: 25px;
 }
 
-.field_with_errors {
-    @extend .has-error;
+.map {
+  height: 384px;
+  width: 100%;
 }
 
-#map-container {
-    height: 400px;
-    border-radius: 16px 16px;
-    border-color: #fff;
-    border-style: solid;
-    box-shadow: 2px 2px 10px #b1b1b1;
-    margin-top: 25px;
-    border-width: 7px;
+.map-container .map img {
+  max-width: none;
 }
 
-#map {
-    height: 384px;
-    width: 100%;
-}
-
-#map-container #map img {
-    max-width: none;
-}
-
-#map-container #map label {
-    width: auto;
-    display: inline;
+.map-container .map label {
+  display: inline;
+  width: auto;
 }

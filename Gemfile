@@ -30,17 +30,22 @@ group :development, :test do
   gem 'better_errors'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'flay', require: nil
+  gem 'haml_lint', require: nil
   gem 'meta_request'
   gem 'peek'
   gem 'pry'
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'quiet_assets'
+  gem 'rails_best_practices', require: nil
+  gem 'reek', require: nil
   gem 'rspec-rails'
   gem 'rspec-its'
-  gem 'rubocop'
-  gem 'sandi_meter'
-  gem 'seed_dump'
+  gem 'rubocop', require: nil
+  gem 'sandi_meter', require: nil
+  gem 'scss_lint', require: nil
+  gem 'seed_dump', require: nil
   gem 'web-console'
 end
 
