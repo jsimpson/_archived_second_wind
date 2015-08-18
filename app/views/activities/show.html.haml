@@ -3,11 +3,12 @@
 
 = javascript_include_tag "highcharts", "chartkick"
 
-- provide(:title, "#{@activity.started_at.localtime.to_s(:long)}")
 
 - activity_presenter = ActivityPresenter.new(@activity, @application_settings.imperial)
 
-%h1= "#{@activity.started_at.localtime.to_s(:long)}"
+- provide(:title, "#{activity_presenter.started_at}")
+
+%h1= "#{activity_presenter.started_at}"
 %h2= "#{activity_presenter.total_distance} around #{activity_presenter.where}"
 
 = render partial: 'show_summary_table', locals: { activity: @activity, activity_presenter: activity_presenter }
