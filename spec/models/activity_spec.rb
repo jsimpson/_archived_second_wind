@@ -61,6 +61,14 @@ describe Activity, type: :model do
       end
     end
 
+    describe '#geo_route_heart_rate_intensity' do
+      it 'should return a hash of heart_rate ranges => counts' do
+        VCR.use_cassette('geocoder') do
+          expect(run.geo_route_heart_rate_intensity.count).to eq(7)
+        end
+      end
+    end
+
     describe '#geo_route_elevation' do
       it 'should return a hash of time => elevation items' do
         VCR.use_cassette('geocoder') do
