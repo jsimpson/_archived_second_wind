@@ -21,6 +21,10 @@ class ActivitiesController < ApplicationController
     render json: Activity.find(params[:id]).geo_route_heart_rate
   end
 
+  def heart_rate_intensity
+    render json: Activity.find(params[:id]).geo_route_heart_rate_intensity
+  end
+
   def elevation
     render json: Activity.find(params[:id]).geo_route_elevation
   end

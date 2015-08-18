@@ -41,6 +41,15 @@ class Activity < ActiveRecord::Base
       .uniq
   end
 
+  def geo_route_heart_rate_intensity
+    points = geo_points.pluck(:heart_rate).reject { |heart_rate| heart_rate.blank? }
+    count = points.count
+
+    return points
+      .group_by { |x| x / 10 }
+      .map { |k, vs| { (10 * k) => ((vs.count.to_f / count.to_f) * 100.0).round(2) }.flatten }
+  end
+
   def geo_route_elevation
     return geo_points
       .pluck(:time, :elevation)

@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   get 'activity/:id/heart_rate' => 'activities#heart_rate', :as => :heart_rate
   get 'activity/:id/elevation' => 'activities#elevation', :as => :elevation
   get 'activity/:id/speed' => 'activities#speed', :as => :speed
+  get 'activity/:id/heart_rate_intensity' => 'activities#heart_rate_intensity', :as => :heart_rate_intensity
 end
