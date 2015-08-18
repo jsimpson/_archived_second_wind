@@ -1,12 +1,14 @@
 @import 'bootstrap-sprockets';
+@import 'bootswatch/lumen/variables';
 @import 'bootstrap';
 @import 'rails_bootstrap_forms';
 
+body { padding-top: 60px; }
+
+@import 'bootswatch/lumen/bootswatch';
+
 $white: #fff;
-$dark-gray: #999;
-$light-gray: #ccc;
-$very-dark-gray: #666;
-$pure-red: #f00;
+$dark-gray: #333;
 
 @mixin box-sizing {
   -moz-box-sizing: border-box;
@@ -16,10 +18,6 @@ $pure-red: #f00;
 
 html {
   overflow-y: scroll;
-}
-
-body {
-  padding-top: 60px;
 }
 
 section {
@@ -55,7 +53,6 @@ h1 {
 }
 
 h2 {
-  color: $dark-gray;
   font-size: 1.3em;
   font-weight: normal;
   letter-spacing: -1px;
@@ -69,73 +66,13 @@ p {
 }
 
 footer {
-  border-top: 1px solid $light-gray;
-  color: $dark-gray;
+  border-top: 1px solid;
   margin-top: 45px;
   padding-top: 5px;
 }
 
-.nav-tabs > li > a,
-.nav-pills > li > a {
-  color: $very-dark-gray;
-}
-
 .nav-pills {
   padding-top: 20px;
-}
-
-.nav-pills > .active > a,
-.nav-pills > .active > a:focus,
-.nav-pills > .active > a:hover,
-.nav-pills > li.active > a,
-.nav-pills > li.active > a:focus,
-.nav-pills > li.active > a:hover {
-  background-color: $very-dark-gray;
-  color: $white;
-}
-
-.pagination > li > a,
-.pagination > li > a:focus,
-.pagination > li > a:hover,
-.pagination > .active > a,
-.pagination > .active > a:focus,
-.pagination > .active > a:hover {
-  border: 1px solid $light-gray;
-  color: $very-dark-gray;
-}
-
-.pagination > .active > a {
-  background-color: $light-gray;
-  color: $very-dark-gray;
-}
-
-.pagination > .active > a:focus,
-.pagination > .active > a:hover {
-  background-color: $light-gray;
-  color: $very-dark-gray;
-}
-
-input,
-textarea,
-select,
-.uneditable-input {
-  @include box-sizing;
-  border: 1px solid $light-gray;
-  margin-bottom: 15px;
-  width: 100%;
-}
-
-input {
-  height: auto;
-}
-
-.error-explanation {
-  color: $pure-red;
-
-  ul {
-    list-style: none;
-    margin: 0 0 18px;
-  }
 }
 
 .map-container {
