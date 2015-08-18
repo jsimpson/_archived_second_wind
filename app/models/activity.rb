@@ -47,7 +47,7 @@ class Activity < ActiveRecord::Base
 
     return points
       .group_by { |x| x / 10 }
-      .map { |k, vs| { (10 * k) => ((vs.count.to_f / count.to_f) * 100.0).round(2) }.flatten }
+      .map { |k, vs| { ((10 * k)..(10 * k + 10)) => ((vs.count.to_f / count.to_f) * 100.0).round(2) }.flatten }
   end
 
   def geo_route_elevation
