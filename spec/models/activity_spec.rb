@@ -48,7 +48,7 @@ describe Activity, type: :model do
     describe '#geo_points_lat_lng' do
       it 'should return a hash of latitude and longitude points' do
         VCR.use_cassette('geocoder') do
-          expect(run.geo_points_lat_lng.count).to eq(1610)
+          expect(run.geo_points.lat_lng.count).to eq(1610)
         end
       end
     end
@@ -56,7 +56,7 @@ describe Activity, type: :model do
     describe '#geo_route_heart_rate' do
       it 'should return a hash of time => heart_rate items' do
         VCR.use_cassette('geocoder') do
-          expect(run.geo_route_heart_rate.count).to eq(1603)
+          expect(run.geo_points.heart_rate.count).to eq(1603)
         end
       end
     end
@@ -64,7 +64,7 @@ describe Activity, type: :model do
     describe '#geo_route_heart_rate_intensity' do
       it 'should return a hash of heart_rate ranges => counts' do
         VCR.use_cassette('geocoder') do
-          expect(run.geo_route_heart_rate_intensity.count).to eq(7)
+          expect(run.geo_points.heart_rate_intensity.count).to eq(7)
         end
       end
     end
@@ -72,7 +72,7 @@ describe Activity, type: :model do
     describe '#geo_route_elevation' do
       it 'should return a hash of time => elevation items' do
         VCR.use_cassette('geocoder') do
-          expect(run.geo_route_elevation.count).to eq(1602)
+          expect(run.geo_points.elevation.count).to eq(1602)
         end
       end
     end
@@ -80,7 +80,7 @@ describe Activity, type: :model do
     describe '#geo_route_speed' do
       it 'should return a hash of time => speed items' do
         VCR.use_cassette('geocoder') do
-          expect(run.geo_route_speed.count).to eq(1602)
+          expect(run.geo_points.speed.count).to eq(1602)
         end
       end
     end

@@ -26,46 +26,6 @@ class Activity < ActiveRecord::Base
   scope :rides, -> { where(sport: 'Biking') }
   scope :hikes, -> { where(sport: 'Hiking') }
 
-  def geo_points_lat_lng
-    return geo_points
-      .pluck(:lat, :lng)
-      .reject { |point| point.any?(&:blank?) }
-      .map { |point| { lat: point[0].to_f, lng: point[1].to_f } }
-  end
-
-  def geo_route_heart_rate
-    return geo_points
-      .pluck(:time, :heart_rate)
-      .reject { |point| point.any?(&:blank?) }
-      .map { |point| { point[0] => point[1] }.flatten }
-      .uniq
-  end
-
-  def geo_route_heart_rate_intensity
-    points = geo_points.pluck(:heart_rate).reject { |heart_rate| heart_rate.blank? }
-    count = points.count
-
-    return points
-      .group_by { |x| x / 10 }
-      .map { |k, vs| { ((10 * k)..(10 * k + 10)) => ((vs.count.to_f / count.to_f) * 100.0).round(2) }.flatten }
-  end
-
-  def geo_route_elevation
-    return geo_points
-      .pluck(:time, :elevation)
-      .reject { |point| point.any?(&:blank?) }
-      .map { |point| { point[0] => (point[1] * 3.28084).round(2) }.flatten }
-      .uniq
-  end
-
-  def geo_route_speed
-    return geo_points
-      .pluck(:time, :speed)
-      .reject { |point| point.any?(&:blank?) }
-      .map { |point| { point[0] => (point[1] * 2.23694).round(2) }.flatten }
-      .uniq
-  end
-
   def self.group_mileage_by_month
     unscoped
       .group_by_month(:started_at, format: '%B %Y')
