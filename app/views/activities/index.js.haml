@@ -1,2 +1,2 @@
 $('#activities').html('#{escape_javascript (render partial: 'activity', locals: { activities: @activities, application_settings: @application_settings} )}');
-$('#paginator').html('#{escape_javascript(paginate(@activities, :remote => true).to_s)}');
+$('#paginator').html('#{escape_javascript(paginate(@activities, remote: true).to_s)}');

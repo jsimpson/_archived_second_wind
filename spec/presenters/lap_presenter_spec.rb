@@ -15,13 +15,13 @@ describe LapPresenter do
     describe '#total_distance' do
       it 'should convert the distance to miles' do
         expect(lap.distance).to eql(1_112)
-        expect(presenter.total_distance).to be_within(2).of(0.69)
+        expect(presenter.total_distance).to eql('0.69 miles')
       end
     end
 
     describe '#average_pace' do
       it 'should return the average pace string in minutes per mile format' do
-        expect(presenter.average_pace).to eql('11:10')
+        expect(presenter.average_pace).to eql('11:10 min/mile')
       end
     end
   end

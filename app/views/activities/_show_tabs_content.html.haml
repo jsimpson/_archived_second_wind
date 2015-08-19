@@ -1,19 +1,19 @@
 .tab-content
-  #map-tab.tab-pane.active
-    #map-container.map-container
-      #map.map
-  #summary-profiles-tab.tab-pane
+  .tab-pane.active#map-tab
+    .map-container#map-container
+      .map#map
+  .tab-pane#summary-profiles-tab
     .col-lg-12
       %br
-      = area_chart heart_rate_path, 'library' => { 'yAxis' => { 'title' => { 'text' => 'Heart Rate (bpm)' } }, 'title' => { 'text' => 'Heart Rate' }, 'colors' => ['#990000']}
+      = area_chart heart_rate_path, 'library' => { 'yAxis' => { 'title' => { 'text' => 'Heart Rate (bpm)' } }, 'title' => { 'text' => 'Heart Rate' }, 'colors' => ['#990000'] }
       %br
-      = area_chart elevation_path, 'library' => { 'yAxis' => { 'title' => { 'text' => 'Elevation (ft)' } }, 'title' => { 'text' => 'Elevation' }, 'colors' => ['#228400']}
+      = area_chart elevation_path, 'library' => { 'yAxis' => { 'title' => { 'text' => 'Elevation (ft)' } }, 'title' => { 'text' => 'Elevation' }, 'colors' => ['#228400'] }
       %br
-      = area_chart speed_path, 'library' => { 'yAxis' => { 'title' => { 'text' => 'Speed (mph)' } }, 'title' => { 'text' => 'Speed' }, 'colors' => ['#0077e6']}
-  #summary-intensity-tab.tab-pane
+      = area_chart speed_path, 'library' => { 'yAxis' => { 'title' => { 'text' => 'Speed (mph)' } }, 'title' => { 'text' => 'Speed' }, 'colors' => ['#0077e6'] }
+  .tab-pane#summary-intensity-tab
     .col-lg-12
       %br
-      = column_chart heart_rate_intensity_path, 'library' => { 'yAxis' => { 'title' => { 'text' => 'Percent of Time' }, 'labels' => { 'format' => '{value} %' } }, 'title' => { 'text' => 'Percent of Time Spent at Heart Rates' }, 'colors' => ['#990000']}
+      = column_chart heart_rate_intensity_path, 'library' => { 'yAxis' => { 'title' => { 'text' => 'Percent of Time' }, 'labels' => { 'format' => '{value} %' } }, 'title' => { 'text' => 'Percent of Time Spent at Heart Rates' }, 'colors' => ['#990000'] }
 
 :javascript
   $(document).ready(function() {

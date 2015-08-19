@@ -11,13 +11,13 @@
   %tbody
     %tr
       %td This Week
-      = render :partial => 'summary_data', locals: { activities: last_week }
+      = render partial: 'summary_data', locals: { activities: last_week }
     %tr
       %td This Month
-      = render :partial => 'summary_data', locals: { activities: last_month }
+      = render partial: 'summary_data', locals: { activities: last_month }
     %tr
       %td This Year
-      = render :partial => 'summary_data', locals: { activities: last_year }
+      = render partial: 'summary_data', locals: { activities: last_year }
     %tr
       %td Lifetime
-      = render :partial => 'summary_data', locals: { activities: lifetime }
+      = render partial: 'summary_data', locals: { activities: lifetime }

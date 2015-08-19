@@ -3,5 +3,5 @@
   %tr
     %td= index + 1
     %td= lap_presenter.elapsed_time
-    %td= "#{number_with_precision(lap_presenter.total_distance, precision: 2)} miles"
-    %td= "#{number_with_precision(lap_presenter.average_pace, precision: 2)} min/mile"
+    %td= lap_presenter.total_distance
+    %td= lap_presenter.average_pace

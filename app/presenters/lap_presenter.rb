@@ -1,4 +1,6 @@
 class LapPresenter
+  include ActionView::Helpers::NumberHelper
+
   def initialize(lap)
     @lap = lap
   end
@@ -11,12 +13,13 @@ class LapPresenter
   end
 
   def total_distance
-    @lap.distance * 0.000621371
+    value = @lap.distance * 0.000621371
+    "#{number_with_precision(value, precision: 2)} miles"
   end
 
   def average_pace
-    return '00:00' if @lap.average_speed == 0.0
-    pace(@lap.average_speed)
+    return '00:00 min/mile' if @lap.average_speed == 0.0
+    "#{pace(@lap.average_speed)} min/mile"
   end
 
   private
