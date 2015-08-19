@@ -20,7 +20,7 @@
       %th Max
       %th Average
   %tbody#activities
-    = render 'activity', locals: { activities: @activities }
+    = render partial: 'activity', locals: { activities: activities, application_settings: application_settings }
 
 #paginator
   = paginate activities, :remote => true

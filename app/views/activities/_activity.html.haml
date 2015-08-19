@@ -1,5 +1,5 @@
-- @activities.each do |activity|
-  - activity_presenter = ActivityPresenter.new(activity, @application_settings.imperial)
+- activities.each do |activity|
+  - activity_presenter = ActivityPresenter.new(activity, application_settings.imperial)
   %tr
     %td= link_to activity_presenter.started_at, activity_path(activity)
     %td= activity.sport

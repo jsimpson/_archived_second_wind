@@ -17,7 +17,7 @@
 
 :javascript
   $(document).ready(function() {
-    gmaps_draw_route(#{@activity.geo_points.lat_lng.to_json});
+    gmaps_draw_route(#{activity.geo_points.lat_lng.to_json});
 
     $(document).on("click", "#map-nav-tab", function() {
       google.maps.event.trigger(map, "resize");
