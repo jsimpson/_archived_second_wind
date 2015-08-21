@@ -60,6 +60,8 @@ bundle exec rake app_settings:metric
 
 You will need to download your GeoRoute files from Garmin (or where ever they end up). I use the [Disconnect](https://gist.github.com/jsimpson/174beffe4e32222cf4da) script to download (scrape) my GeoRoute files from Garmin Connect. If you use a different GPS vendor, you'll need to obtain your GeoRoute files another way.
 
+Another option available is to use [Tapirik](https://tapiriik.com/) to synchronize activites from Garmin Connect to a folder on DropBox. From DropBox, you can download your activity files and import them.
+
 Importing is currently only supported via Rake tasks, and **only the TCX GeoRoute file format** is currently supported.
 
 #### Bulk importing GeoRoutes
