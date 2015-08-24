@@ -22,6 +22,7 @@ class GeoPoint < ActiveRecord::Base
 
     points
       .group_by { |x| x / 10 }
+      .sort
       .map { |k, vs| { ((10 * k)..(10 * k + 10)) => ((vs.count.to_f / count.to_f) * 100.0).round(2) }.flatten }
   end
 
