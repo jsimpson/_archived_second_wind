@@ -21,7 +21,7 @@ class Activity < ActiveRecord::Base
 
   after_save :update_route, if: ->(obj) { obj.geo_route_processed == false && obj.geo_route.present? }
   after_save :reverse_geocode, if: ->(obj) { obj.full_address.blank? }
-  default_scope -> { order('started_at DESC') }
+  scope :started_at, -> { order('started_at DESC') }
 
   def self.group_mileage_by_month
     unscoped

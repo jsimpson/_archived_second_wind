@@ -1,12 +1,12 @@
 class GeoPoint < ActiveRecord::Base
   belongs_to :activity
 
-  default_scope -> { order('time ASC') }
-
   def self.lat_lng
-    pluck(:lat, :lng)
+    order('time ASC')
+      .pluck(:lat, :lng)
       .reject { |point| point.any?(&:blank?) }
       .map { |point| { lat: point[0].to_f, lng: point[1].to_f } }
+      .uniq
   end
 
   def self.heart_rate
