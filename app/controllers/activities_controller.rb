@@ -3,9 +3,9 @@ class ActivitiesController < ApplicationController
     @activities = Activity.page(params[:page])
     @application_settings = ApplicationSetting.first
     @lifetime = Activity.all
-    @last_year = Activity.find_by_period(Time.now.all_year)
-    @last_month = Activity.find_by_period(Time.now.all_month)
-    @last_week = Activity.find_by_period(Time.now.all_week)
+    @last_year = Activity.find_by_period(Time.zone.now.all_year)
+    @last_month = Activity.find_by_period(Time.zone.now.all_month)
+    @last_week = Activity.find_by_period(Time.zone.now.all_week)
   end
 
   def show
