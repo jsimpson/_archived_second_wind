@@ -24,5 +24,11 @@ describe LapPresenter do
         expect(presenter.average_pace).to eql('11:10 min/mile')
       end
     end
+
+    describe '#average_speed' do
+      it 'should return the average speed string in miles per hour format' do
+        expect(presenter.average_speed).to eql('5.37 mph')
+      end
+    end
   end
 end

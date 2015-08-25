@@ -22,6 +22,11 @@ class LapPresenter
     "#{pace(@lap.average_speed)} min/mile"
   end
 
+  def average_speed
+    value = @lap.average_speed * 2.23694
+    "#{number_with_precision(value, precision: 2)} mph"
+  end
+
   private
 
   attr_reader :lap
