@@ -92,9 +92,11 @@ class ActivityPresenter
     if @use_imperial
       value *= conversion_ratio
       units = imperial_unit
+      "#{number_with_precision(value, delimiter: ',', precision: precision)} #{units}"
+    else
+      "#{number_with_precision(value, delimiter: ',', precision: 0)} #{units}"
     end
 
-    "#{number_with_precision(value, precision: precision)} #{units}"
   end
 
   def pace(speed)

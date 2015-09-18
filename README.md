@@ -56,6 +56,14 @@ If you're after Metric units
 bundle exec rake app_settings:metric
 ```
 
+You'll also need to get redis installed and configure the Sidekiq initializer to use the correct redis port. You can find more about that [here](https://github.com/mperham/sidekiq/wiki/Using-Redis).
+
+You'll need to start Sidekiq when the app is running:
+
+```sh
+sidekiq
+```
+
 ### Import your GeoRoute files
 
 You will need to download your GeoRoute files from Garmin (or where ever they end up). I use the [Disconnect](https://gist.github.com/jsimpson/174beffe4e32222cf4da) script to download (scrape) my GeoRoute files from Garmin Connect. If you use a different GPS vendor, you'll need to obtain your GeoRoute files another way.
@@ -96,8 +104,6 @@ If you're planning to host this app on an external server you should remember to
 ```ruby
 config.time_zone = 'Pacific Time (US & Canada)'
 ```
-
-You'll also need to get redis installed and configure the Sidekiq initializer to use the correct redis port. You can find more about that [here](https://github.com/mperham/sidekiq/wiki/Using-Redis).
 
 Also, for what it's worth, I've had great success with [Mina](https://github.com/mina-deploy/mina) for automatically deploying this app to my hosting provider.
 
