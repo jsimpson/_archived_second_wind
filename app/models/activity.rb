@@ -8,19 +8,8 @@ class Activity < ActiveRecord::Base
     content_type: ['application/xml', 'application/octet-stream']
   validates_attachment_file_name :geo_route, matches: [/gpx\Z/, /tcx\Z/]
 
-  reverse_geocoded_by :latitude, :longitude do |obj, result|
-    if geo = result.first
-      obj.full_address = geo.address
-      obj.city = geo.city
-      obj.state = geo.state
-      obj.country = geo.country
-      obj.country_code = geo.country_code
-      obj.save
-    end
-  end
-
   after_save :update_route, if: ->(obj) { obj.geo_route_processed == false && obj.geo_route.present? }
-  after_save :reverse_geocode, if: ->(obj) { obj.full_address.blank? }
+
   scope :started_at, -> { order('started_at DESC') }
 
   def self.group_mileage_by_month
@@ -58,99 +47,9 @@ class Activity < ActiveRecord::Base
     sum(:total_calories)
   end
 
-  def update_trends
-    as = Activity.where(sport: sport).average(:average_speed)
-
-    unless as.blank? || as == 0.0
-      if average_speed > as
-        update_column(:speed_trend, 1)
-      elsif average_speed < as
-        update_column(:speed_trend, -1)
-      end
-    end
-  end
-
   private
 
   def update_route
-    format = get_format
-    file = File.open(geo_route.path)
-    route = Broutes.from_file(file, format)
-
-    update_activity_geo_points(route) unless geo_points.any?
-    update_activity_laps(route) unless laps.any?
-    update_activity_summary(route)
-    update_trends
-  end
-
-  def get_format
-    case File.extname(geo_route.path)
-    when '.gpx'
-      :gpx_track
-    when '.tcx'
-      :tcx
-    end
-  end
-
-  def update_activity_summary(route)
-    update_columns(
-      started_at: route.started_at,
-      ended_at: route.ended_at,
-      total_elevation_gain: route.total_ascent,
-      total_elevation_loss: route.total_descent,
-      total_time: route.total_time,
-      total_distance: route.total_distance,
-      max_speed: route.maximum_speed,
-      min_speed: route.minimum_speed,
-      average_speed: route.average_speed,
-      max_elevation: route.maximum_elevation,
-      min_elevation: route.minimum_elevation,
-      max_heart_rate: route.maximum_heart_rate,
-      min_heart_rate: route.minimum_heart_rate,
-      average_heart_rate: route.average_heart_rate,
-      total_calories: route.total_calories,
-      sport: route.type,
-      geo_route_processed: true
-    )
-
-    first_point = route.points.reject { |point| point.lat.blank? || point.lon.blank? }.first if route.points.any?
-    update_columns(latitude: first_point.lat, longitude: first_point.lon) if first_point.present?
-  end
-
-  def update_activity_laps(route)
-    route.laps.each do |lap|
-      route_lap = Lap.new(
-        activity: self,
-        start_time: lap.start_time,
-        total_time: lap.total_time,
-        distance: lap.distance,
-        calories: lap.calories,
-        average_speed: lap.average_speed,
-        maximum_speed: lap.maximum_speed,
-        average_heart_rate: lap.average_heart_rate,
-        maximum_heart_rate: lap.maximum_heart_rate
-      )
-
-      route_lap.save
-    end
-  end
-
-  def update_activity_geo_points(route)
-    route.points.each do |point|
-      geo_point = GeoPoint.new(
-        activity: self,
-        cadence: point.cadence,
-        distance: point.distance,
-        elevation: point.elevation,
-        heart_rate: point.heart_rate,
-        lat: point.lat,
-        lng: point.lon,
-        power: point.power,
-        speed: point.speed,
-        time: point.time
-      )
-
-      geo_point.save
-    end
+    GeoRouteWorker.new.perform(id)
   end
 end
