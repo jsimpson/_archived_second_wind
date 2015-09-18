@@ -94,7 +94,7 @@ class ActivityPresenter
       units = imperial_unit
       "#{number_with_precision(value, delimiter: ',', precision: precision)} #{units}"
     else
-      "#{number_with_precision(value, delimiter: ',', precision: 0)} #{units}"
+      "#{number_with_precision(value, delimiter: ',', precision: 2)} #{units}"
     end
 
   end

@@ -57,14 +57,14 @@ describe ActivityPresenter do
       describe '#total_elevation_gain' do
         it 'should display in feet' do
           expect(activity.total_elevation_gain).to be_within(0.1).of(526.7)
-          expect(presenter.total_elevation_gain).to eql('1728 ft')
+          expect(presenter.total_elevation_gain).to eql('1,728 ft')
         end
       end
 
       describe '#total_elevation_loss' do
         it 'should display in feet' do
           expect(activity.total_elevation_loss).to be_within(0.1).of(449.7)
-          expect(presenter.total_elevation_loss).to eql('1476 ft')
+          expect(presenter.total_elevation_loss).to eql('1,476 ft')
         end
       end
 
@@ -90,7 +90,7 @@ describe ActivityPresenter do
       describe '#total_distance' do
         it 'should display in meters' do
           expect(activity.total_distance).to eql(21_446)
-          expect(presenter.total_distance).to eql('21446.00 meters')
+          expect(presenter.total_distance).to eql('21,446.00 meters')
         end
       end
 
@@ -136,28 +136,28 @@ describe ActivityPresenter do
       describe '#total_elevation_gain' do
         it 'should display in meters' do
           expect(activity.total_elevation_gain).to be_within(0.1).of(526.7)
-          expect(presenter.total_elevation_gain).to eql('527 m')
+          expect(presenter.total_elevation_gain).to eql('526.79 m')
         end
       end
 
       describe '#total_elevation_loss' do
         it 'should display in meters' do
           expect(activity.total_elevation_loss).to be_within(0.1).of(449.7)
-          expect(presenter.total_elevation_loss).to eql('450 m')
+          expect(presenter.total_elevation_loss).to eql('449.79 m')
         end
       end
 
       describe '#max_elevation' do
         it 'should display in meters' do
           expect(activity.max_elevation).to be_within(0.1).of(94.8)
-          expect(presenter.max_elevation).to eql('95 m')
+          expect(presenter.max_elevation).to eql('94.80 m')
         end
       end
 
       describe '#min_elevation' do
         it 'should display in meters' do
           expect(activity.min_elevation).to be_within(0.1).of(-11.0)
-          expect(presenter.min_elevation).to eql('-11 m')
+          expect(presenter.min_elevation).to eql('-11.00 m')
         end
       end
     end
@@ -195,11 +195,11 @@ describe ActivityPresenter do
 
           it 'should tell us which glyphicon to display' do
             VCR.use_cassette('geocoder') do
-              FactoryGirl.create(:activity, sport: 'Running', average_speed: 10.0)
-              slower = FactoryGirl.create(:run_with_geo_route)
-              slower_presenter = ActivityPresenter.new(slower, true)
+              FactoryGirl.create(:activity, sport: 'Running', average_speed: 1.0)
+              faster = FactoryGirl.create(:run_with_geo_route)
+              presenter = ActivityPresenter.new(faster, true)
 
-              expect(slower_presenter.trend).to eq('down')
+              expect(presenter.trend).to eq('up')
             end
           end
         end
