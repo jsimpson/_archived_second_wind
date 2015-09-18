@@ -52,9 +52,9 @@ ActiveRecord::Schema.define(version: 20150730031300) do
   end
 
   create_table "application_settings", force: :cascade do |t|
-    t.boolean  "imperial",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "imperial",   default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "geo_points", force: :cascade do |t|
