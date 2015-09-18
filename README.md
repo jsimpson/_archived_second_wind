@@ -97,4 +97,7 @@ If you're planning to host this app on an external server you should remember to
 config.time_zone = 'Pacific Time (US & Canada)'
 ```
 
+You'll also need to get redis installed and configure the Sidekiq initializer to use the correct redis port. You can find more about that [here](https://github.com/mperham/sidekiq/wiki/Using-Redis).
+
 Also, for what it's worth, I've had great success with [Mina](https://github.com/mina-deploy/mina) for automatically deploying this app to my hosting provider.
+
