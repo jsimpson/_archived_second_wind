@@ -10,12 +10,12 @@ Second Wind is a self-hosted, anti-social activity (cycling, hiking, and running
 + Individual activity heart rate, elevation, and speed profile charting.
 + Google Maps integration with the [Google-Maps-for-Rails](https://github.com/apneadiving/Google-Maps-for-Rails) gem for individual activity route map overlays.
 + Importing GeoRoute files in bulk or individually.
-+ Display data in Imperial or Metric units
 
 ### Planned
 
 + Importing via the app, both bulk or individually.
 + GeoRoute exporting, again both bulk or individually.
++ Display data in Imperial or Metric units.
 
 ### GeoRoutes
 
