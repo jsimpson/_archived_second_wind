@@ -8,6 +8,7 @@ class GeoRouteWorker
       format = get_format(File.extname(activity.geo_route.path))
       file = File.open(activity.geo_route.path)
       route = Broutes.from_file(file, format)
+      binding.pry
 
       update_activity(activity, route)
       activity.save

@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/jsimpson/broutes
-  revision: 9c2b3b0aa0db660812eeb87160b1e752b59a3722
-  ref: 9c2b3b0
+  revision: 9b0f81b6c9bc870370e04af0b39b12aa550e5c49
+  ref: 9b0f81b
   specs:
     broutes (0.1.3)
       garmin-fit (~> 0.0.2)

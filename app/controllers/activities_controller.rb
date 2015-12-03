@@ -1,7 +1,6 @@
 class ActivitiesController < ApplicationController
   def index
     @activities = Activity.started_at.page(params[:page])
-    @application_settings = ApplicationSetting.first
     @lifetime = Activity.all
     @last_year = Activity.find_by_period(Time.zone.now.all_year)
     @last_month = Activity.find_by_period(Time.zone.now.all_month)
@@ -10,7 +9,6 @@ class ActivitiesController < ApplicationController
 
   def show
     @activity = Activity.find(params[:id])
-    @application_settings = ApplicationSetting.first
   end
 
   def mileage

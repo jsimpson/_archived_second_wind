@@ -1,13 +1,13 @@
 class ActivityPresenter
   include ActionView::Helpers::NumberHelper
 
-  def initialize(activity, use_imperial)
+  def initialize(activity, use_imperial = true)
     @activity = activity
     @use_imperial = use_imperial
   end
 
   def started_at
-    @activity.started_at.to_s(:long)
+    @activity.started_at.to_s(:month_day_year_slashes)
   end
 
   def elapsed_time
@@ -15,7 +15,7 @@ class ActivityPresenter
   end
 
   def total_distance
-    convert(@activity.total_distance, 0.000621371, 2, 'miles', 'meters')
+    convert(@activity.total_distance, 0.000621371, 2, 'miles')
   end
 
   def total_calories
@@ -23,15 +23,15 @@ class ActivityPresenter
   end
 
   def max_speed
-    convert(@activity.max_speed, 2.23694, 2, 'mph', 'km/h')
+    convert(@activity.max_speed, 2.23694, 2, 'mph')
   end
 
   def min_speed
-    convert(@activity.min_speed, 2.23694, 2, 'mph', 'km/h')
+    convert(@activity.min_speed, 2.23694, 2, 'mph')
   end
 
   def average_speed
-    convert(@activity.average_speed, 2.23694, 2, 'mph', 'km/h')
+    convert(@activity.average_speed, 2.23694, 2, 'mph')
   end
 
   def max_pace
@@ -86,32 +86,17 @@ class ActivityPresenter
 
   attr_reader :activity, :use_imperial
 
-  def convert(value, conversion_ratio, precision, imperial_unit, metric_unit)
-    units = metric_unit
-
-    if @use_imperial
-      value *= conversion_ratio
-      units = imperial_unit
-      "#{number_with_precision(value, delimiter: ',', precision: precision)} #{units}"
-    else
-      "#{number_with_precision(value, delimiter: ',', precision: 2)} #{units}"
-    end
-
+  def convert(value, conversion_ratio, precision, units)
+    value *= conversion_ratio
+    "#{number_with_precision(value, delimiter: ',', precision: precision)} #{units}"
   end
 
   def pace(speed)
     return '00:00' if speed == 0.0
-    units = 'min/km'
 
-    if @use_imperial
-      pace = (60 / (speed * 2.23694)).to_d
-      units = 'min/mile'
-    else
-      pace = (60 / (speed)).to_d
-    end
-
+    pace = (60 / (speed * 2.23694)).to_d
     seconds = (pace.frac * 60).floor
-    format('%02d:%02d %s', pace.fix, seconds, units)
+    format('%02d:%02d %s', pace.fix, seconds, 'min/mile')
   end
 
   def seconds(t)
@@ -127,6 +112,6 @@ class ActivityPresenter
   end
 
   def elevation(ele)
-    convert(ele, 3.28084, 0, 'ft', 'm')
+    convert(ele, 3.28084, 0, 'ft')
   end
 end

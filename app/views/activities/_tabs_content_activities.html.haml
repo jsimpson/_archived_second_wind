@@ -5,6 +5,6 @@
     %a#summary-tab-link{ 'data-toggle' => 'tab', :href => '#summaries-tab', :role => 'tab' } Summary
 .tab-content
   .tab-pane.active#table-tab
-    = render partial: 'table', locals: { activities: activities, application_settings: application_settings }
+    = render partial: 'table', locals: { activities: activities }
   .tab-pane#summaries-tab
     = render partial: 'summary', locals: { lifetime: lifetime, last_year: last_year, last_month: last_month, last_week: last_week }
