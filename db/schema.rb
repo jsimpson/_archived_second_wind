@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203044821) do
+ActiveRecord::Schema.define(version: 20151207033259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 20151203044821) do
     t.boolean  "geo_route_processed",    default: false, null: false
     t.integer  "speed_trend",            default: 0,     null: false
     t.string   "sport"
+    t.integer  "average_cadence"
+    t.integer  "max_cadence"
   end
 
   create_table "geo_points", force: :cascade do |t|
@@ -80,6 +82,8 @@ ActiveRecord::Schema.define(version: 20151203044821) do
     t.integer  "maximum_heart_rate"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.integer  "average_cadence"
+    t.integer  "maximum_cadence"
   end
 
   add_index "laps", ["activity_id"], name: "index_laps_on_activity_id", using: :btree

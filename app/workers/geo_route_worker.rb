@@ -46,6 +46,8 @@ class GeoRouteWorker
     activity.average_heart_rate = route.average_heart_rate
     activity.total_calories = route.total_calories
     activity.sport = route.type
+    activity.average_cadence = route.average_cadence
+    activity.max_cadence = route.maximum_cadence
 
     first_point = route.points.reject { |point| point.lat.blank? || point.lon.blank? }.first if route.points.any?
     if first_point.present?
@@ -83,7 +85,9 @@ class GeoRouteWorker
         average_speed: lap.average_speed,
         maximum_speed: lap.maximum_speed,
         average_heart_rate: lap.average_heart_rate,
-        maximum_heart_rate: lap.maximum_heart_rate
+        maximum_heart_rate: lap.maximum_heart_rate,
+        average_cadence: lap.average_cadence,
+        maximum_cadence: lap.maximum_cadence
       )
 
       route_lap.save

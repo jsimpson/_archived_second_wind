@@ -1,13 +1,16 @@
 class ActivityPresenter
   include ActionView::Helpers::NumberHelper
 
-  def initialize(activity, use_imperial = true)
+  def initialize(activity)
     @activity = activity
-    @use_imperial = use_imperial
   end
 
   def started_at
     @activity.started_at.to_s(:month_day_year_slashes)
+  end
+
+  def started_at_long
+    @activity.started_at.to_s(:long)
   end
 
   def elapsed_time
@@ -82,9 +85,17 @@ class ActivityPresenter
     "#{activity.average_heart_rate} bpm"
   end
 
+  def average_cadence
+    "#{activity.average_cadence * 2} spm"
+  end
+
+  def maximum_cadence
+    "#{activity.max_cadence * 2} spm"
+  end
+
   private
 
-  attr_reader :activity, :use_imperial
+  attr_reader :activity
 
   def convert(value, conversion_ratio, precision, units)
     value *= conversion_ratio

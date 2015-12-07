@@ -5,9 +5,9 @@
 
 - activity_presenter = ActivityPresenter.new(@activity)
 
-- provide(:title, "#{activity_presenter.started_at}")
+- provide(:title, "#{activity_presenter.started_at_long}")
 
-%h1= "#{activity_presenter.started_at}"
+%h1= "#{activity_presenter.started_at_long}"
 %h2= "#{activity_presenter.total_distance} around #{activity_presenter.where}"
 
 = render partial: 'show_summary_table', locals: { activity: @activity, activity_presenter: activity_presenter }
