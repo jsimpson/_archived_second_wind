@@ -1,5 +1,5 @@
 class Lap < ActiveRecord::Base
   belongs_to :activity
 
-  default_scope -> { order('start_time ASC') }
+  scope :started_at, -> { order('started_at ASC') }
 end
