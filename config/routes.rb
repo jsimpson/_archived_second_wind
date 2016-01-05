@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
   resources :activities, only: [ :index, :show ]
 
-  require 'sidekiq/web'
-  mount Sidekiq::Web => '/sidekiq'
-
   root 'activities#index'
 
   get 'lifetime_monthly_mileage' => 'activities#mileage', :as => :activities_mileage

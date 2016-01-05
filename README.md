@@ -56,8 +56,6 @@ If you're after Metric units
 bundle exec rake app_settings:metric
 ```
 
-You'll also need to get redis installed and configure the Sidekiq initializer to use the correct redis port. You can find more about that [here](https://github.com/mperham/sidekiq/wiki/Using-Redis).
-
 ### Import your GeoRoute files
 
 You will need to download your GeoRoute files from Garmin (or where ever they end up). I use the [Disconnect](https://gist.github.com/jsimpson/174beffe4e32222cf4da) script to download (scrape) my GeoRoute files from Garmin Connect. If you use a different GPS vendor, you'll need to obtain your GeoRoute files another way.

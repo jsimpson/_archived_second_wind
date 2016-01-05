@@ -49,6 +49,6 @@ class Activity < ActiveRecord::Base
   private
 
   def update_route
-    GeoRouteWorker.new.perform(id)
+    UpdateGeoRouteService.new.execute(id)
   end
 end

@@ -26,12 +26,6 @@ gem 'highcharts-rails'
 gem 'geocoder'
 
 gem 'mina'
-gem 'mina-sidekiq'
-
-gem 'sidekiq'
-gem 'sinatra', require: nil
-gem 'readthis'
-gem 'hiredis'
 
 group :development, :test do
   gem 'awesome_print', require: 'ap'
