@@ -5,7 +5,7 @@ describe ActivityPresenter do
     let(:activity) { FactoryGirl.build(:activity_with_summary) }
 
     context 'imperial units' do
-      let(:presenter) { ActivityPresenter.new(activity, true) }
+      let(:presenter) { ActivityPresenter.new(activity) }
       subject { presenter }
 
       describe '#total_distance' do
@@ -84,7 +84,7 @@ describe ActivityPresenter do
     end
 
     context 'regardless of the units' do
-      let(:presenter) { ActivityPresenter.new(activity, true) }
+      let(:presenter) { ActivityPresenter.new(activity) }
       subject { presenter }
 
       describe '#elapsed_time' do
@@ -118,7 +118,7 @@ describe ActivityPresenter do
             VCR.use_cassette('geocoder') do
               FactoryGirl.create(:activity, sport: 'Running', average_speed: 1.0)
               faster = FactoryGirl.create(:run_with_geo_route)
-              presenter = ActivityPresenter.new(faster, true)
+              presenter = ActivityPresenter.new(faster)
 
               expect(presenter.trend).to eq('up')
             end
