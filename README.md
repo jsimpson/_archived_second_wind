@@ -42,25 +42,11 @@ bundle exec rake db:create
 bundle exec rake db:migrate
 ```
 
-Set up the application settings so that it displays data in your prefered units of measurement.
-
-If you're after Imperial units
-
-```sh
-bundle exec rake app_settings:imperial
-```
-
-If you're after Metric units
-
-```sh
-bundle exec rake app_settings:metric
-```
-
 ### Import your GeoRoute files
 
 You will need to download your GeoRoute files from Garmin (or where ever they end up). I use the [Disconnect](https://gist.github.com/jsimpson/174beffe4e32222cf4da) script to download (scrape) my GeoRoute files from Garmin Connect. If you use a different GPS vendor, you'll need to obtain your GeoRoute files another way.
 
-Another option available is to use [Tapirik](https://tapiriik.com/) to synchronize activites from Garmin Connect to a folder on DropBox. From DropBox, you can download your activity files and import them.
+Another option available is to use [Tapirik](https://tapiriik.com/) to synchronize activities from Garmin Connect to a folder on DropBox. From DropBox, you can download your activity files and import them.
 
 Importing is currently only supported via Rake tasks, and **only the TCX GeoRoute file format** is currently supported.
 
@@ -98,4 +84,3 @@ config.time_zone = 'Pacific Time (US & Canada)'
 ```
 
 Also, for what it's worth, I've had great success with [Mina](https://github.com/mina-deploy/mina) for automatically deploying this app to my hosting provider.
-
